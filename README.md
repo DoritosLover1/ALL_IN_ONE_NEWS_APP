@@ -1,4 +1,4 @@
-# flutter_medic
+# flutter_all_in_one_news_app
 
 A new Flutter project.
 
