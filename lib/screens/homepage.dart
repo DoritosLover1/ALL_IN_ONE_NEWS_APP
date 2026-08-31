@@ -24,23 +24,31 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentTabIndex,
-        children: [
-          NewsFeedView(controller: _feedController),
-          LiveBroadcastsScreen(isTabActive: _currentTabIndex == 1),
-          SavedNewsScreen(controller: _feedController),
-        ],
-      ),
-      bottomNavigationBar: CustomBottomNavbar(
-        currentIndex: _currentTabIndex,
-        onTap: (index) {
-          setState(() {
-            _currentTabIndex = index;
-          });
-        },
-      ),
+    return ListenableBuilder(
+      listenable: _feedController,
+      builder: (context, child) {
+        return Scaffold(
+          body: IndexedStack(
+            index: _currentTabIndex,
+            children: [
+              NewsFeedView(controller: _feedController),
+              LiveBroadcastsScreen(
+                isTabActive: _currentTabIndex == 1,
+                selectedSourceIds: _feedController.selectedSourceIds,
+              ),
+              SavedNewsScreen(controller: _feedController),
+            ],
+          ),
+          bottomNavigationBar: CustomBottomNavbar(
+            currentIndex: _currentTabIndex,
+            onTap: (index) {
+              setState(() {
+                _currentTabIndex = index;
+              });
+            },
+          ),
+        );
+      },
     );
   }
 }

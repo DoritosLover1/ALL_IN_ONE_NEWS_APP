@@ -9,8 +9,13 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class LiveBroadcastsScreen extends StatefulWidget {
   final bool isTabActive;
+  final Set<String> selectedSourceIds;
 
-  const LiveBroadcastsScreen({super.key, this.isTabActive = true});
+  const LiveBroadcastsScreen({
+    super.key,
+    this.isTabActive = true,
+    this.selectedSourceIds = const {},
+  });
 
   @override
   State<LiveBroadcastsScreen> createState() => _LiveBroadcastsScreenState();
@@ -18,6 +23,7 @@ class LiveBroadcastsScreen extends StatefulWidget {
 
 class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
     with SingleTickerProviderStateMixin {
+  late List<SourceChannel> _channels;
   late SourceChannel _activeChannel;
   late YoutubePlayerController _ytController;
   StreamSubscription<YoutubePlayerValue>? _playerSub;
@@ -30,7 +36,8 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
   @override
   void initState() {
     super.initState();
-    _activeChannel = initialLiveChannels.first;
+    _channels = getChannelsForSelectedSources(widget.selectedSourceIds);
+    _activeChannel = _channels.first;
     _ytController = YoutubePlayerController.fromVideoId(
       videoId: _activeChannel.youtubeVideoId,
       autoPlay: false,
@@ -75,6 +82,19 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
       if (!widget.isTabActive) {
         _ytController.pauseVideo();
       }
+    }
+
+    if (widget.selectedSourceIds != oldWidget.selectedSourceIds) {
+      final updated = getChannelsForSelectedSources(widget.selectedSourceIds);
+      setState(() {
+        _channels = updated;
+        if (!_channels.any((c) => c.id == _activeChannel.id)) {
+          _activeChannel = _channels.first;
+          _ytController.loadVideoById(videoId: _activeChannel.youtubeVideoId);
+          _ytController.pauseVideo();
+          _resolveActiveChannelStream(_activeChannel);
+        }
+      });
     }
   }
 
@@ -133,7 +153,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
-    final channels = initialLiveChannels;
+    final channels = _channels;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
@@ -229,7 +249,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      '${channels.length} Kanal Aktif',
+                      '${channels.length} Kanal Seçili',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
