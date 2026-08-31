@@ -59,6 +59,9 @@ class MockPlatformWebViewController extends PlatformWebViewController {
   Future<void> setPlatformNavigationDelegate(
     PlatformNavigationDelegate handler,
   ) async {}
+
+  @override
+  Future<void> setUserAgent(String? userAgent) async {}
 }
 
 class MockPlatformWebViewWidget extends PlatformWebViewWidget {

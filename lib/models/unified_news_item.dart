@@ -17,7 +17,6 @@ class UnifiedNewsItem {
   final String? imageUrl;
   final String? pubDate;
   final String category;
-  final String readCount;
   final String timeAgo;
   final bool isBreaking;
   final bool isFavorite;
@@ -38,7 +37,6 @@ class UnifiedNewsItem {
     this.imageUrl,
     this.pubDate,
     this.category = 'Gündem',
-    this.readCount = '12.4k okuma',
     this.timeAgo = 'Yeni',
     this.isBreaking = false,
     this.isFavorite = false,
@@ -70,7 +68,6 @@ class UnifiedNewsItem {
       pubDate: item.pubDate,
       category: item.category ?? 'Gündem',
       timeAgo: _calculateTimeAgo(item.createdAt),
-      readCount: _generateReadCount(item.title),
       isBreaking: isBreaking,
       isFavorite: item.isFavorite,
       isRead: item.isRead,
@@ -99,7 +96,6 @@ class UnifiedNewsItem {
       pubDate: item.pubDate,
       category: item.category ?? 'Gündem',
       timeAgo: _calculateTimeAgo(item.createdAt),
-      readCount: _generateReadCount(item.title),
       isBreaking: isBreaking,
       isFavorite: item.isFavorite,
       isRead: item.isRead,
@@ -121,7 +117,6 @@ class UnifiedNewsItem {
     String? imageUrl,
     String? pubDate,
     String? category,
-    String? readCount,
     String? timeAgo,
     bool? isBreaking,
     bool? isFavorite,
@@ -142,7 +137,6 @@ class UnifiedNewsItem {
       imageUrl: imageUrl ?? this.imageUrl,
       pubDate: pubDate ?? this.pubDate,
       category: category ?? this.category,
-      readCount: readCount ?? this.readCount,
       timeAgo: timeAgo ?? this.timeAgo,
       isBreaking: isBreaking ?? this.isBreaking,
       isFavorite: isFavorite ?? this.isFavorite,
@@ -184,12 +178,6 @@ class UnifiedNewsItem {
     } else {
       return '${diff.inDays} gün önce';
     }
-  }
-
-  static String _generateReadCount(String title) {
-    final hash = title.hashCode.abs();
-    final count = ((hash % 180) + 20) / 10.0;
-    return '${count.toStringAsFixed(1)}k okuma';
   }
 }
 

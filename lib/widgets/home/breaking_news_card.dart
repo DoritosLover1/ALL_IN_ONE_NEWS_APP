@@ -198,7 +198,7 @@ class BreakingNewsCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    '•  ${item.readCount}',
+                    '•  ${item.timeAgo}',
                     style: theme.textTheme.displaySmall?.copyWith(
                       color: AppColors.gray,
                       fontSize: 12,

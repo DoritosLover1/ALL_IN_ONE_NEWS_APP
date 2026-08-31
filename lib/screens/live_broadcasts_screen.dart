@@ -22,6 +22,9 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
     _activeChannel = initialLiveChannels.first;
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setUserAgent(
+        'Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36',
+      )
       ..setBackgroundColor(Colors.black)
       ..setNavigationDelegate(
         NavigationDelegate(
@@ -55,14 +58,14 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
 </head>
 <body>
   <iframe
-    src="https://www.youtube.com/embed/${_activeChannel.youtubeVideoId}?autoplay=1&playsinline=1&rel=0&modestbranding=1"
+    src="https://www.youtube-nocookie.com/embed/${_activeChannel.youtubeVideoId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&origin=https://www.youtube.com&widget_referrer=https://www.youtube.com"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
     allowfullscreen>
   </iframe>
 </body>
 </html>
 ''';
-    _webViewController.loadHtmlString(html);
+    _webViewController.loadHtmlString(html, baseUrl: 'https://www.youtube.com');
   }
 
   void _selectChannel(SourceChannel channel) {

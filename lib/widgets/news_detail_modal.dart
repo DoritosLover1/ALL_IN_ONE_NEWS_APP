@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
@@ -22,6 +24,7 @@ class NewsDetailModal extends StatefulWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      enableDrag: false,
       useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (_) => NewsDetailModal(
@@ -49,6 +52,9 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
 
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setUserAgent(
+        'Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36',
+      )
       ..setBackgroundColor(Colors.white)
       ..setNavigationDelegate(
         NavigationDelegate(
@@ -101,111 +107,120 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
     final item = widget.newsItem;
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.92,
+      height: MediaQuery.of(context).size.height * 0.94,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         children: [
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 6),
-              width: 40,
-              height: 4.5,
-              decoration: BoxDecoration(
-                color: const Color(0xFFCBD5E1),
-                borderRadius: BorderRadius.circular(10),
-              ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 6),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
+            child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 9,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: item.sourceBadgeColor,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    item.sourceBadgeText,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 11,
+                Center(
+                  child: Container(
+                    width: 38,
+                    height: 4.5,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFCBD5E1),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        item.sourceTitle,
-                        style: const TextStyle(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.5,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 9,
+                        vertical: 4,
                       ),
-                      Text(
-                        item.link,
+                      decoration: BoxDecoration(
+                        color: item.sourceBadgeColor,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        item.sourceBadgeText,
                         style: const TextStyle(
-                          color: Color(0xFF64748B),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
                           fontSize: 11,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            item.sourceTitle,
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13.5,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            item.link,
+                            style: const TextStyle(
+                              color: Color(0xFF64748B),
+                              fontSize: 11,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
 
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _isFavorite = !_isFavorite;
-                    });
-                    widget.onFavoriteToggle?.call();
-                  },
-                  icon: Icon(
-                    _isFavorite
-                        ? Icons.bookmark_rounded
-                        : Icons.bookmark_border_rounded,
-                    color: _isFavorite ? primaryColor : const Color(0xFF64748B),
-                    size: 22,
-                  ),
-                  tooltip: 'Kaydet',
-                ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _isFavorite = !_isFavorite;
+                        });
+                        widget.onFavoriteToggle?.call();
+                      },
+                      icon: Icon(
+                        _isFavorite
+                            ? Icons.bookmark_rounded
+                            : Icons.bookmark_border_rounded,
+                        color: _isFavorite
+                            ? primaryColor
+                            : const Color(0xFF64748B),
+                        size: 22,
+                      ),
+                      tooltip: 'Kaydet',
+                    ),
 
-                IconButton(
-                  onPressed: _openInExternalBrowser,
-                  icon: const Icon(
-                    Icons.open_in_new_rounded,
-                    color: Color(0xFF64748B),
-                    size: 20,
-                  ),
-                  tooltip: 'Tarayıcıda Aç',
-                ),
+                    IconButton(
+                      onPressed: _openInExternalBrowser,
+                      icon: const Icon(
+                        Icons.open_in_new_rounded,
+                        color: Color(0xFF64748B),
+                        size: 20,
+                      ),
+                      tooltip: 'Tarayıcıda Aç',
+                    ),
 
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.close_rounded,
-                    color: Color(0xFF1E293B),
-                    size: 22,
-                  ),
-                  tooltip: 'Kapat',
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(
+                        Icons.close_rounded,
+                        color: Color(0xFF1E293B),
+                        size: 22,
+                      ),
+                      tooltip: 'Kapat',
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -225,7 +240,17 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
             child: Stack(
               children: [
                 if (!_hasError)
-                  WebViewWidget(controller: _webViewController)
+                  WebViewWidget(
+                    controller: _webViewController,
+                    gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                      Factory<OneSequenceGestureRecognizer>(
+                        () => EagerGestureRecognizer(),
+                      ),
+                      Factory<VerticalDragGestureRecognizer>(
+                        () => VerticalDragGestureRecognizer(),
+                      ),
+                    },
+                  )
                 else
                   _buildErrorFallbackView(context, item, primaryColor),
 
