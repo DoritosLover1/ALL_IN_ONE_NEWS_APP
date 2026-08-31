@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return provider.Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
+          title: 'TümHaber',
           debugShowCheckedModeBanner: false,
           theme: themeProvider.themeData,
           home: SplashScreen(autoNavigate: autoNavigateSplash),
