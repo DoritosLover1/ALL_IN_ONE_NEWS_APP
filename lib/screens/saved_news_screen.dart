@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/controllers/news_feed_controller.dart';
+import 'package:flutter_medic/models/unified_news_item.dart';
 import 'package:flutter_medic/widgets/home/news_card_item.dart';
+import 'package:flutter_medic/widgets/news_detail_modal.dart';
 
 class SavedNewsScreen extends StatelessWidget {
   final NewsFeedController controller;
 
   const SavedNewsScreen({super.key, required this.controller});
+
+  void _openNewsDetail(BuildContext context, UnifiedNewsItem item) {
+    NewsDetailModal.show(
+      context: context,
+      newsItem: item,
+      onFavoriteToggle: () => controller.toggleBookmark(item),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +110,7 @@ class SavedNewsScreen extends StatelessWidget {
                     final item = savedItems[index];
                     return NewsCardItem(
                       item: item,
+                      onTap: () => _openNewsDetail(context, item),
                       onBookmarkTap: () => controller.toggleBookmark(item),
                     );
                   },

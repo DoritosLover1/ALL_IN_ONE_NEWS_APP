@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/controllers/news_feed_controller.dart';
+import 'package:flutter_medic/models/unified_news_item.dart';
 import 'package:flutter_medic/widgets/home/breaking_news_card.dart';
 import 'package:flutter_medic/widgets/home/category_chips_bar.dart';
 import 'package:flutter_medic/widgets/home/empty_news_view.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_medic/widgets/home/home_header.dart';
 import 'package:flutter_medic/widgets/home/home_search_bar.dart';
 import 'package:flutter_medic/widgets/home/news_card_item.dart';
 import 'package:flutter_medic/widgets/home/source_filter_bottom_sheet.dart';
+import 'package:flutter_medic/widgets/news_detail_modal.dart';
 
 class NewsFeedView extends StatefulWidget {
   final NewsFeedController controller;
@@ -34,8 +36,19 @@ class _NewsFeedViewState extends State<NewsFeedView> {
     );
   }
 
+  void _openNewsDetail(UnifiedNewsItem item) {
+    NewsDetailModal.show(
+      context: context,
+      newsItem: item,
+      onFavoriteToggle: () => widget.controller.toggleBookmark(item),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.colorScheme.primary;
+
     return ListenableBuilder(
       listenable: widget.controller,
       builder: (context, _) {
@@ -50,7 +63,7 @@ class _NewsFeedViewState extends State<NewsFeedView> {
             bottom: false,
             child: RefreshIndicator(
               onRefresh: controller.refreshFeed,
-              color: const Color(0xFFDC2626),
+              color: primaryColor,
               child: CustomScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: ClampingScrollPhysics(),
@@ -83,12 +96,10 @@ class _NewsFeedViewState extends State<NewsFeedView> {
                   const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
                   if (controller.isLoading)
-                    const SliverFillRemaining(
+                    SliverFillRemaining(
                       hasScrollBody: false,
                       child: Center(
-                        child: CircularProgressIndicator(
-                          color: Color(0xFFDC2626),
-                        ),
+                        child: CircularProgressIndicator(color: primaryColor),
                       ),
                     )
                   else if (isEmpty)
@@ -108,6 +119,7 @@ class _NewsFeedViewState extends State<NewsFeedView> {
                           padding: const EdgeInsets.only(bottom: 12),
                           child: BreakingNewsCard(
                             item: breakingItem,
+                            onTap: () => _openNewsDetail(breakingItem),
                             onBookmarkTap: () =>
                                 controller.toggleBookmark(breakingItem),
                           ),
@@ -119,6 +131,7 @@ class _NewsFeedViewState extends State<NewsFeedView> {
                         final item = standardItems[index];
                         return NewsCardItem(
                           item: item,
+                          onTap: () => _openNewsDetail(item),
                           onBookmarkTap: () => controller.toggleBookmark(item),
                         );
                       }, childCount: standardItems.length),
