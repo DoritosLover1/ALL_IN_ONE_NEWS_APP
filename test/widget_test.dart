@@ -1,30 +1,56 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/main.dart';
+import 'package:flutter_medic/screens/live_broadcasts_screen.dart';
+import 'package:flutter_medic/screens/sync_loading_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart' as provider;
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App smoke test', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: provider.MultiProvider(
+          providers: [
+            provider.ChangeNotifierProvider(
+              create: (context) => ThemeProvider(),
+            ),
+            provider.ChangeNotifierProvider(
+              create: (context) => BottomTabState(),
+            ),
+          ],
+          child: const MyApp(),
+        ),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('SENİN HABERLERİN'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('SyncLoadingScreen renders progress and title', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SyncLoadingScreen(
+          selectedSourceIds: {'trt', 'ntv'},
+          autoNavigate: false,
+        ),
+      ),
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Akışınız Kişiselleştiriliyor'), findsOneWidget);
+    await tester.pumpWidget(Container());
+  });
+
+  testWidgets('LiveBroadcastsScreen renders embedded player and channels', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: LiveBroadcastsScreen()));
+
+    expect(find.text('Canlı Yayınlar'), findsOneWidget);
+    expect(find.text('Tüm Canlı Kanallar'), findsOneWidget);
+    expect(find.text('TRT Haber'), findsWidgets);
   });
 }

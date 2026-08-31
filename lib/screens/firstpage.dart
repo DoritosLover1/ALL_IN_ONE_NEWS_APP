@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/controllers/source_selection_controller.dart';
+import 'package:flutter_medic/screens/sync_loading_screen.dart';
+import 'package:flutter_medic/services/user_preferences_service.dart';
 import 'package:flutter_medic/widgets/confirmation_dialog.dart';
 import 'package:flutter_medic/widgets/custom_search_bar.dart';
 import 'package:flutter_medic/widgets/floating_bottom_button.dart';
@@ -27,7 +29,7 @@ class _FirstpageState extends State<Firstpage> {
     super.dispose();
   }
 
-  void _onContinuePressed(BuildContext context) async {
+  void _onContinuePressed() async {
     final confirmed = await showConfirmationDialog(
       context: context,
       title: "Seçimleri Onayla",
@@ -37,7 +39,19 @@ class _FirstpageState extends State<Firstpage> {
       cancelText: "Vazgeç",
     );
 
-    if (confirmed == true && mounted) {}
+    if (confirmed == true && mounted) {
+      await UserPreferencesService.saveSelectedSources(_controller.selectedIds);
+      await UserPreferencesService.setOnboardingCompleted(true);
+
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) =>
+              SyncLoadingScreen(selectedSourceIds: _controller.selectedIds),
+        ),
+      );
+    }
   }
 
   @override
@@ -194,7 +208,7 @@ class _FirstpageState extends State<Firstpage> {
           floatingActionButton: FloatingBottomButton(
             text: "Devam Et (${_controller.selectedCount})",
             isEnabled: _controller.hasSelection,
-            onPressed: () => _onContinuePressed(context),
+            onPressed: _onContinuePressed,
           ),
         );
       },
