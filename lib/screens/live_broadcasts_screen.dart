@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/source_channel.dart';
+import 'package:flutter_medic/services/live_stream_resolver_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -31,6 +32,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
         showVideoAnnotations: false,
       ),
     );
+    _resolveActiveChannelStream(_activeChannel);
   }
 
   @override
@@ -45,6 +47,19 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
       _activeChannel = channel;
     });
     _ytController.loadVideoById(videoId: channel.youtubeVideoId);
+    _resolveActiveChannelStream(channel);
+  }
+
+  Future<void> _resolveActiveChannelStream(SourceChannel channel) async {
+    final liveId = await LiveStreamResolverService.resolveLiveVideoId(
+      handle: channel.channelHandle,
+      fallbackVideoId: channel.youtubeVideoId,
+    );
+    if (mounted &&
+        _activeChannel.id == channel.id &&
+        liveId != channel.youtubeVideoId) {
+      _ytController.loadVideoById(videoId: liveId);
+    }
   }
 
   Future<void> _openInYouTubeApp() async {
