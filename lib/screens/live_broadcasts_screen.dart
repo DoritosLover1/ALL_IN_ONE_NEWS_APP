@@ -44,28 +44,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
     setState(() {
       _isLoadingStream = true;
     });
-    final html =
-        '''
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { width: 100%; height: 100%; background: #000000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    iframe { width: 100%; height: 100%; border: none; }
-  </style>
-</head>
-<body>
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/${_activeChannel.youtubeVideoId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&origin=https://www.youtube.com&widget_referrer=https://www.youtube.com"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-    allowfullscreen>
-  </iframe>
-</body>
-</html>
-''';
-    _webViewController.loadHtmlString(html, baseUrl: 'https://www.youtube.com');
+    _webViewController.loadRequest(Uri.parse(_activeChannel.embedUrl));
   }
 
   void _selectChannel(SourceChannel channel) {
