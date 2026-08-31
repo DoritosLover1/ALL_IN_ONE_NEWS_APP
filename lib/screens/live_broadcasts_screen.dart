@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/source_channel.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class LiveBroadcastsScreen extends StatefulWidget {
   const LiveBroadcastsScreen({super.key});
@@ -13,38 +13,30 @@ class LiveBroadcastsScreen extends StatefulWidget {
 
 class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
   late SourceChannel _activeChannel;
-  late final WebViewController _webViewController;
-  bool _isLoadingStream = true;
+  late YoutubePlayerController _ytController;
 
   @override
   void initState() {
     super.initState();
     _activeChannel = initialLiveChannels.first;
-    _webViewController = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setUserAgent(
-        'Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36',
-      )
-      ..setBackgroundColor(Colors.black)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onPageFinished: (_) {
-            if (mounted) {
-              setState(() {
-                _isLoadingStream = false;
-              });
-            }
-          },
-        ),
-      );
-    _loadActiveChannelStream();
+    _ytController = YoutubePlayerController.fromVideoId(
+      videoId: _activeChannel.youtubeVideoId,
+      autoPlay: true,
+      params: const YoutubePlayerParams(
+        showControls: true,
+        showFullscreenButton: true,
+        mute: false,
+        loop: false,
+        enableJavaScript: true,
+        showVideoAnnotations: false,
+      ),
+    );
   }
 
-  void _loadActiveChannelStream() {
-    setState(() {
-      _isLoadingStream = true;
-    });
-    _webViewController.loadRequest(Uri.parse(_activeChannel.embedUrl));
+  @override
+  void dispose() {
+    _ytController.close();
+    super.dispose();
   }
 
   void _selectChannel(SourceChannel channel) {
@@ -52,7 +44,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
     setState(() {
       _activeChannel = channel;
     });
-    _loadActiveChannelStream();
+    _ytController.loadVideoById(videoId: channel.youtubeVideoId);
   }
 
   Future<void> _openInYouTubeApp() async {
@@ -68,104 +60,110 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
     final primaryColor = theme.colorScheme.primary;
     final channels = initialLiveChannels;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF8FAFC),
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        title: Row(
-          children: [
-            Container(
-              width: 8,
-              height: 8,
-              decoration: const BoxDecoration(
-                color: AppColors.darkRed,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'Canlı Yayınlar',
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w800,
-                color: AppColors.black,
-                fontSize: 22,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 4, 20, 16),
-              child: _buildRealEmbeddedPlayer(primaryColor),
+    return YoutubePlayer(
+      controller: _ytController,
+      aspectRatio: 16 / 9,
+      builder: (context, player, _) {
+        return Scaffold(
+          backgroundColor: const Color(0xFFF8FAFC),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFF8FAFC),
+            surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            title: Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: AppColors.darkRed,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Canlı Yayınlar',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.black,
+                    fontSize: 22,
+                  ),
+                ),
+              ],
             ),
           ),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+                  child: _buildPlayerCard(player, primaryColor),
+                ),
+              ),
 
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Tüm Canlı Kanallar',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.black,
-                      letterSpacing: -0.3,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primaryColor.withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      '${channels.length} Kanal Aktif',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: primaryColor,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Tüm Canlı Kanallar',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.black,
+                          letterSpacing: -0.3,
+                        ),
                       ),
-                    ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          '${channels.length} Kanal Aktif',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
 
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                final channel = channels[index];
-                final isCurrentActive = channel.id == _activeChannel.id;
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: _buildChannelCard(
-                    channel: channel,
-                    isActive: isCurrentActive,
-                    primaryColor: primaryColor,
-                  ),
-                );
-              }, childCount: channels.length),
-            ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final channel = channels[index];
+                    final isCurrentActive = channel.id == _activeChannel.id;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: _buildChannelCard(
+                        channel: channel,
+                        isActive: isCurrentActive,
+                        primaryColor: primaryColor,
+                      ),
+                    );
+                  }, childCount: channels.length),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildRealEmbeddedPlayer(Color primaryColor) {
+  Widget _buildPlayerCard(Widget player, Color primaryColor) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
@@ -181,43 +179,8 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  WebViewWidget(controller: _webViewController),
-
-                  if (_isLoadingStream)
-                    Container(
-                      color: Colors.black,
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                primaryColor,
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              '${_activeChannel.name} Canlı Yayını Başlatılıyor...',
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
+            player,
 
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -292,7 +255,6 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                       ],
                     ),
                   ),
-
                   IconButton(
                     onPressed: _openInYouTubeApp,
                     icon: const Icon(
@@ -300,7 +262,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                       color: Colors.white70,
                       size: 20,
                     ),
-                    tooltip: 'YouTube\'da Aç',
+                    tooltip: "YouTube'da Aç",
                   ),
                 ],
               ),
@@ -359,7 +321,6 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
               ),
             ),
             const SizedBox(width: 12),
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,7 +369,6 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                 ],
               ),
             ),
-
             Container(
               width: 38,
               height: 38,
@@ -418,7 +378,9 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
               ),
               alignment: Alignment.center,
               child: Icon(
-                isActive ? Icons.play_arrow_rounded : Icons.play_arrow_outlined,
+                isActive
+                    ? Icons.play_arrow_rounded
+                    : Icons.play_arrow_outlined,
                 color: isActive ? Colors.white : AppColors.black,
                 size: 22,
               ),
