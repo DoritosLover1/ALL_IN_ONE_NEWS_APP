@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
+import 'package:flutter_medic/services/share_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -199,6 +200,17 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
                         size: 22,
                       ),
                       tooltip: 'Kaydet',
+                    ),
+
+                    IconButton(
+                      onPressed: () =>
+                          ShareService.shareNewsItem(item, context: context),
+                      icon: const Icon(
+                        Icons.share_outlined,
+                        color: Color(0xFF64748B),
+                        size: 20,
+                      ),
+                      tooltip: 'Paylaş',
                     ),
 
                     IconButton(

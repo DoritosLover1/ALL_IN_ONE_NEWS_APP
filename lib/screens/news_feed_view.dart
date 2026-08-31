@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/controllers/news_feed_controller.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
+import 'package:flutter_medic/services/share_service.dart';
 import 'package:flutter_medic/widgets/home/breaking_news_card.dart';
 import 'package:flutter_medic/widgets/home/category_chips_bar.dart';
 import 'package:flutter_medic/widgets/home/empty_news_view.dart';
@@ -125,6 +126,10 @@ class _NewsFeedViewState extends State<NewsFeedView> {
                                 onTap: () => _openNewsDetail(breakingItem),
                                 onBookmarkTap: () =>
                                     controller.toggleBookmark(breakingItem),
+                                onShareTap: () => ShareService.shareNewsItem(
+                                  breakingItem,
+                                  context: context,
+                                ),
                               ),
                             ),
                           ),
@@ -140,6 +145,10 @@ class _NewsFeedViewState extends State<NewsFeedView> {
                               onTap: () => _openNewsDetail(item),
                               onBookmarkTap: () =>
                                   controller.toggleBookmark(item),
+                              onShareTap: () => ShareService.shareNewsItem(
+                                item,
+                                context: context,
+                              ),
                             );
                           }, childCount: standardItems.length),
                         ),
