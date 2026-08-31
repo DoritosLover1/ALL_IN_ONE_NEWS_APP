@@ -136,17 +136,15 @@ void main() {
     await tester.pumpWidget(Container());
   });
 
-  testWidgets(
-    'LiveBroadcastsScreen renders player and channels header',
-    (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: LiveBroadcastsScreen()));
-      await tester.pump();
+  testWidgets('LiveBroadcastsScreen renders player and channels header', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: LiveBroadcastsScreen()));
+    await tester.pump();
 
-      expect(find.text('Canlı Yayınlar'), findsOneWidget);
-      expect(find.text('Tüm Canlı Kanallar'), findsOneWidget);
-    },
-    skip: true,
-  );
+    expect(find.text('Canlı Yayınlar'), findsOneWidget);
+    expect(find.text('Tüm Canlı Kanallar'), findsOneWidget);
+  }, skip: true);
 
   testWidgets('NewsDetailModal renders header and source information', (
     WidgetTester tester,
