@@ -81,7 +81,6 @@ class _NewsFeedViewState extends State<NewsFeedView> {
                       controller: _searchController,
                       onChanged: controller.setSearchQuery,
                       onClear: () => controller.setSearchQuery(''),
-                      onFilterTap: _openSourceFilter,
                     ),
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 14)),

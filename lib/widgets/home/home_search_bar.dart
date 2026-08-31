@@ -5,14 +5,12 @@ class HomeSearchBar extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
   final VoidCallback onClear;
-  final VoidCallback onFilterTap;
 
   const HomeSearchBar({
     super.key,
     required this.controller,
     required this.onChanged,
     required this.onClear,
-    required this.onFilterTap,
   });
 
   @override
@@ -70,33 +68,7 @@ class HomeSearchBar extends StatelessWidget {
                   onClear();
                 },
               ),
-
-            Padding(
-              padding: const EdgeInsets.only(right: 6),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: onFilterTap,
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    padding: const EdgeInsets.all(7),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: const Color(0xFFE2E8F0),
-                        width: 1,
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.tune_rounded,
-                      size: 16,
-                      color: AppColors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            const SizedBox(width: 6),
           ],
         ),
       ),
