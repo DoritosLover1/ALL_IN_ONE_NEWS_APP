@@ -459,16 +459,20 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
                 children: [
                   Row(
                     children: [
-                      Text(
-                        channel.name,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.black,
+                      Flexible(
+                        child: Text(
+                          channel.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.black,
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 6),
-                      if (isActive)
+                      if (isActive) ...[
+                        const SizedBox(width: 6),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 6,
@@ -479,7 +483,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
-                            isPlaying ? 'Oynatılıyor' : 'Seçili (Duraklatıldı)',
+                            isPlaying ? 'Oynatılıyor' : 'Duraklatıldı',
                             style: TextStyle(
                               color: primaryColor,
                               fontWeight: FontWeight.w800,
@@ -487,6 +491,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
                             ),
                           ),
                         ),
+                      ],
                     ],
                   ),
                   const SizedBox(height: 3),
