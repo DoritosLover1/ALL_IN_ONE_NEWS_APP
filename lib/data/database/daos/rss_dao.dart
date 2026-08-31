@@ -10,9 +10,6 @@ abstract class RssDao {
   @Query('SELECT * FROM RssItem ORDER BY createdAt DESC')
   Stream<List<RssItem>> watchAllRssItems();
 
-  @Query('SELECT * FROM RssItem WHERE id = :id')
-  Future<RssItem?> findRssItemById(int id);
-
   @Query('SELECT * FROM RssItem WHERE link = :link LIMIT 1')
   Future<RssItem?> findRssItemByLink(String link);
 
@@ -30,10 +27,10 @@ abstract class RssDao {
   @Query('SELECT COUNT(*) FROM RssItem')
   Future<int?> getItemCount();
 
-  @Insert(onConflict: OnConflictStrategy.replace)
+  @Insert(onConflict: OnConflictStrategy.ignore)
   Future<int> insertRssItem(RssItem item);
 
-  @Insert(onConflict: OnConflictStrategy.replace)
+  @Insert(onConflict: OnConflictStrategy.ignore)
   Future<List<int>> insertRssItems(List<RssItem> items);
 
   @update
@@ -47,8 +44,8 @@ abstract class RssDao {
   )
   Future<void> deleteOldUnsavedItems(int cutoffTimestamp);
 
-  @Query('DELETE FROM RssItem WHERE id = :id')
-  Future<void> deleteRssItemById(int id);
+  @Query('DELETE FROM RssItem WHERE link = :link')
+  Future<void> deleteRssItemByLink(String link);
 
   @Query('DELETE FROM RssItem')
   Future<void> deleteAllRssItems();

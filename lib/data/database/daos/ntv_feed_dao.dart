@@ -10,9 +10,6 @@ abstract class NtvFeedDao {
   @Query('SELECT * FROM NtvFeedItem ORDER BY createdAt DESC')
   Stream<List<NtvFeedItem>> watchAllNtvFeedItems();
 
-  @Query('SELECT * FROM NtvFeedItem WHERE id = :id')
-  Future<NtvFeedItem?> findNtvFeedItemById(int id);
-
   @Query('SELECT * FROM NtvFeedItem WHERE link = :link LIMIT 1')
   Future<NtvFeedItem?> findNtvFeedItemByLink(String link);
 
@@ -37,10 +34,10 @@ abstract class NtvFeedDao {
   @Query('SELECT COUNT(*) FROM NtvFeedItem')
   Future<int?> getItemCount();
 
-  @Insert(onConflict: OnConflictStrategy.replace)
+  @Insert(onConflict: OnConflictStrategy.ignore)
   Future<int> insertNtvFeedItem(NtvFeedItem item);
 
-  @Insert(onConflict: OnConflictStrategy.replace)
+  @Insert(onConflict: OnConflictStrategy.ignore)
   Future<List<int>> insertNtvFeedItems(List<NtvFeedItem> items);
 
   @update
@@ -54,8 +51,8 @@ abstract class NtvFeedDao {
   )
   Future<void> deleteOldUnsavedItems(int cutoffTimestamp);
 
-  @Query('DELETE FROM NtvFeedItem WHERE id = :id')
-  Future<void> deleteNtvFeedItemById(int id);
+  @Query('DELETE FROM NtvFeedItem WHERE link = :link')
+  Future<void> deleteNtvFeedItemByLink(String link);
 
   @Query('DELETE FROM NtvFeedItem')
   Future<void> deleteAllNtvFeedItems();

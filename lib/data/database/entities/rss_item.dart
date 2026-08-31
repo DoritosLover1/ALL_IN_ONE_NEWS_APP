@@ -2,15 +2,14 @@ import 'package:floor/floor.dart';
 
 @entity
 class RssItem {
-  @PrimaryKey(autoGenerate: true)
-  final int? id;
+  @primaryKey
+  final String link;
 
   final String sourceId;
   final String sourceTitle;
   final String title;
   final String? description;
   final String? content;
-  final String link;
   final String? pubDate;
   final String? imageUrl;
   final String? category;
@@ -20,13 +19,12 @@ class RssItem {
   final int createdAt;
 
   RssItem({
-    this.id,
+    required this.link,
     required this.sourceId,
     required this.sourceTitle,
     required this.title,
     this.description,
     this.content,
-    required this.link,
     this.pubDate,
     this.imageUrl,
     this.category,
@@ -37,13 +35,12 @@ class RssItem {
   }) : createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch;
 
   RssItem copyWith({
-    int? id,
+    String? link,
     String? sourceId,
     String? sourceTitle,
     String? title,
     String? description,
     String? content,
-    String? link,
     String? pubDate,
     String? imageUrl,
     String? category,
@@ -53,13 +50,12 @@ class RssItem {
     int? createdAt,
   }) {
     return RssItem(
-      id: id ?? this.id,
+      link: link ?? this.link,
       sourceId: sourceId ?? this.sourceId,
       sourceTitle: sourceTitle ?? this.sourceTitle,
       title: title ?? this.title,
       description: description ?? this.description,
       content: content ?? this.content,
-      link: link ?? this.link,
       pubDate: pubDate ?? this.pubDate,
       imageUrl: imageUrl ?? this.imageUrl,
       category: category ?? this.category,
@@ -72,6 +68,6 @@ class RssItem {
 
   @override
   String toString() {
-    return 'RssItem(id: $id, sourceId: $sourceId, title: $title, link: $link, isFavorite: $isFavorite, isRead: $isRead)';
+    return 'RssItem(link: $link, sourceId: $sourceId, title: $title, isFavorite: $isFavorite, isRead: $isRead)';
   }
 }

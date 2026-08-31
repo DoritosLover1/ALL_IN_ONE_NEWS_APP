@@ -2,14 +2,13 @@ import 'package:floor/floor.dart';
 
 @entity
 class NtvFeedItem {
-  @PrimaryKey(autoGenerate: true)
-  final int? id;
+  @primaryKey
+  final String link;
 
   final String title;
   final String? spot;
   final String? description;
   final String? content;
-  final String link;
   final String? pubDate;
   final String? imageUrl;
   final String? category;
@@ -18,12 +17,11 @@ class NtvFeedItem {
   final int createdAt;
 
   NtvFeedItem({
-    this.id,
+    required this.link,
     required this.title,
     this.spot,
     this.description,
     this.content,
-    required this.link,
     this.pubDate,
     this.imageUrl,
     this.category,
@@ -33,12 +31,11 @@ class NtvFeedItem {
   }) : createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch;
 
   NtvFeedItem copyWith({
-    int? id,
+    String? link,
     String? title,
     String? spot,
     String? description,
     String? content,
-    String? link,
     String? pubDate,
     String? imageUrl,
     String? category,
@@ -47,12 +44,11 @@ class NtvFeedItem {
     int? createdAt,
   }) {
     return NtvFeedItem(
-      id: id ?? this.id,
+      link: link ?? this.link,
       title: title ?? this.title,
       spot: spot ?? this.spot,
       description: description ?? this.description,
       content: content ?? this.content,
-      link: link ?? this.link,
       pubDate: pubDate ?? this.pubDate,
       imageUrl: imageUrl ?? this.imageUrl,
       category: category ?? this.category,
@@ -64,6 +60,6 @@ class NtvFeedItem {
 
   @override
   String toString() {
-    return 'NtvFeedItem(id: $id, title: $title, category: $category, link: $link, isFavorite: $isFavorite, isRead: $isRead)';
+    return 'NtvFeedItem(link: $link, title: $title, category: $category, isFavorite: $isFavorite, isRead: $isRead)';
   }
 }

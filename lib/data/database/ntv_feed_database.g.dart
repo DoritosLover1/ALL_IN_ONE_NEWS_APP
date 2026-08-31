@@ -96,7 +96,7 @@ class _$NtvFeedDatabase extends NtvFeedDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-          'CREATE TABLE IF NOT EXISTS `NtvFeedItem` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `spot` TEXT, `description` TEXT, `content` TEXT, `link` TEXT NOT NULL, `pubDate` TEXT, `imageUrl` TEXT, `category` TEXT, `isFavorite` INTEGER NOT NULL, `isRead` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)',
+          'CREATE TABLE IF NOT EXISTS `NtvFeedItem` (`link` TEXT NOT NULL, `title` TEXT NOT NULL, `spot` TEXT, `description` TEXT, `content` TEXT, `pubDate` TEXT, `imageUrl` TEXT, `category` TEXT, `isFavorite` INTEGER NOT NULL, `isRead` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY (`link`))',
         );
 
         await callback?.onCreate?.call(database, version);
@@ -118,12 +118,11 @@ class _$NtvFeedDao extends NtvFeedDao {
         database,
         'NtvFeedItem',
         (NtvFeedItem item) => <String, Object?>{
-          'id': item.id,
+          'link': item.link,
           'title': item.title,
           'spot': item.spot,
           'description': item.description,
           'content': item.content,
-          'link': item.link,
           'pubDate': item.pubDate,
           'imageUrl': item.imageUrl,
           'category': item.category,
@@ -136,14 +135,13 @@ class _$NtvFeedDao extends NtvFeedDao {
       _ntvFeedItemUpdateAdapter = UpdateAdapter(
         database,
         'NtvFeedItem',
-        ['id'],
+        ['link'],
         (NtvFeedItem item) => <String, Object?>{
-          'id': item.id,
+          'link': item.link,
           'title': item.title,
           'spot': item.spot,
           'description': item.description,
           'content': item.content,
-          'link': item.link,
           'pubDate': item.pubDate,
           'imageUrl': item.imageUrl,
           'category': item.category,
@@ -156,14 +154,13 @@ class _$NtvFeedDao extends NtvFeedDao {
       _ntvFeedItemDeletionAdapter = DeletionAdapter(
         database,
         'NtvFeedItem',
-        ['id'],
+        ['link'],
         (NtvFeedItem item) => <String, Object?>{
-          'id': item.id,
+          'link': item.link,
           'title': item.title,
           'spot': item.spot,
           'description': item.description,
           'content': item.content,
-          'link': item.link,
           'pubDate': item.pubDate,
           'imageUrl': item.imageUrl,
           'category': item.category,
@@ -191,12 +188,11 @@ class _$NtvFeedDao extends NtvFeedDao {
     return _queryAdapter.queryList(
       'SELECT * FROM NtvFeedItem ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -212,12 +208,11 @@ class _$NtvFeedDao extends NtvFeedDao {
     return _queryAdapter.queryListStream(
       'SELECT * FROM NtvFeedItem ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -231,38 +226,15 @@ class _$NtvFeedDao extends NtvFeedDao {
   }
 
   @override
-  Future<NtvFeedItem?> findNtvFeedItemById(int id) async {
-    return _queryAdapter.query(
-      'SELECT * FROM NtvFeedItem WHERE id = ?1',
-      mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
-        title: row['title'] as String,
-        spot: row['spot'] as String?,
-        description: row['description'] as String?,
-        content: row['content'] as String?,
-        link: row['link'] as String,
-        pubDate: row['pubDate'] as String?,
-        imageUrl: row['imageUrl'] as String?,
-        category: row['category'] as String?,
-        isFavorite: (row['isFavorite'] as int) != 0,
-        isRead: (row['isRead'] as int) != 0,
-        createdAt: row['createdAt'] as int?,
-      ),
-      arguments: [id],
-    );
-  }
-
-  @override
   Future<NtvFeedItem?> findNtvFeedItemByLink(String link) async {
     return _queryAdapter.query(
       'SELECT * FROM NtvFeedItem WHERE link = ?1 LIMIT 1',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -279,12 +251,11 @@ class _$NtvFeedDao extends NtvFeedDao {
     return _queryAdapter.queryList(
       'SELECT * FROM NtvFeedItem WHERE isFavorite = 1 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -300,12 +271,11 @@ class _$NtvFeedDao extends NtvFeedDao {
     return _queryAdapter.queryList(
       'SELECT * FROM NtvFeedItem WHERE isRead = 0 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -321,12 +291,11 @@ class _$NtvFeedDao extends NtvFeedDao {
     return _queryAdapter.queryList(
       'SELECT * FROM NtvFeedItem WHERE category = ?1 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -343,12 +312,11 @@ class _$NtvFeedDao extends NtvFeedDao {
     return _queryAdapter.queryList(
       'SELECT * FROM NtvFeedItem WHERE title LIKE ?1 OR spot LIKE ?1 OR description LIKE ?1 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => NtvFeedItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         title: row['title'] as String,
         spot: row['spot'] as String?,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -377,10 +345,10 @@ class _$NtvFeedDao extends NtvFeedDao {
   }
 
   @override
-  Future<void> deleteNtvFeedItemById(int id) async {
+  Future<void> deleteNtvFeedItemByLink(String link) async {
     await _queryAdapter.queryNoReturn(
-      'DELETE FROM NtvFeedItem WHERE id = ?1',
-      arguments: [id],
+      'DELETE FROM NtvFeedItem WHERE link = ?1',
+      arguments: [link],
     );
   }
 
@@ -393,7 +361,7 @@ class _$NtvFeedDao extends NtvFeedDao {
   Future<int> insertNtvFeedItem(NtvFeedItem item) {
     return _ntvFeedItemInsertionAdapter.insertAndReturnId(
       item,
-      OnConflictStrategy.replace,
+      OnConflictStrategy.ignore,
     );
   }
 
@@ -401,7 +369,7 @@ class _$NtvFeedDao extends NtvFeedDao {
   Future<List<int>> insertNtvFeedItems(List<NtvFeedItem> items) {
     return _ntvFeedItemInsertionAdapter.insertListAndReturnIds(
       items,
-      OnConflictStrategy.replace,
+      OnConflictStrategy.ignore,
     );
   }
 

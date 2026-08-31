@@ -34,13 +34,16 @@ void main() {
         category: 'Ekonomi',
       );
 
-      final id = await dao.insertNtvFeedItem(item);
-      expect(id, isPositive);
+      await dao.insertNtvFeedItem(item);
 
       final items = await dao.findAllNtvFeedItems();
       expect(items.length, equals(1));
       expect(items.first.title, equals('NTV Son Dakika Gelişmesi'));
       expect(items.first.category, equals('Ekonomi'));
+
+      await dao.insertNtvFeedItem(item);
+      final afterDuplicate = await dao.findAllNtvFeedItems();
+      expect(afterDuplicate.length, equals(1));
 
       final updated = items.first.copyWith(isFavorite: true);
       await dao.updateNtvFeedItem(updated);

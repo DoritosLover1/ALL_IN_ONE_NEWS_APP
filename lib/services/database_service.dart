@@ -129,10 +129,15 @@ class DatabaseService {
     Set<String> activeSourceIds,
   ) async {
     final List<UnifiedNewsItem> combined = [];
+    final Set<String> seenLinks = {};
 
     if (activeSourceIds.contains('ntv') && _ntvFeedDatabase != null) {
       final ntvItems = await _ntvFeedDatabase!.ntvFeedDao.findAllNtvFeedItems();
-      combined.addAll(ntvItems.map((e) => UnifiedNewsItem.fromNtv(e)));
+      for (final item in ntvItems) {
+        if (seenLinks.add(item.link)) {
+          combined.add(UnifiedNewsItem.fromNtv(item));
+        }
+      }
     }
 
     for (final sourceId in activeSourceIds) {
@@ -140,7 +145,11 @@ class DatabaseService {
       final db = _rssDatabases[sourceId.toLowerCase()];
       if (db != null) {
         final rssItems = await db.rssDao.findAllRssItems();
-        combined.addAll(rssItems.map((e) => UnifiedNewsItem.fromRss(e)));
+        for (final item in rssItems) {
+          if (seenLinks.add(item.link)) {
+            combined.add(UnifiedNewsItem.fromRss(item));
+          }
+        }
       }
     }
 
@@ -150,16 +159,25 @@ class DatabaseService {
 
   Future<List<UnifiedNewsItem>> getAllFavoriteItems() async {
     final List<UnifiedNewsItem> favorites = [];
+    final Set<String> seenLinks = {};
 
     if (_ntvFeedDatabase != null) {
       final ntvFavs = await _ntvFeedDatabase!.ntvFeedDao
           .findFavoriteNtvFeedItems();
-      favorites.addAll(ntvFavs.map((e) => UnifiedNewsItem.fromNtv(e)));
+      for (final item in ntvFavs) {
+        if (seenLinks.add(item.link)) {
+          favorites.add(UnifiedNewsItem.fromNtv(item));
+        }
+      }
     }
 
     for (final db in _rssDatabases.values) {
       final rssFavs = await db.rssDao.findFavoriteRssItems();
-      favorites.addAll(rssFavs.map((e) => UnifiedNewsItem.fromRss(e)));
+      for (final item in rssFavs) {
+        if (seenLinks.add(item.link)) {
+          favorites.add(UnifiedNewsItem.fromRss(item));
+        }
+      }
     }
 
     favorites.sort((a, b) => b.createdAt.compareTo(a.createdAt));
@@ -168,12 +186,12 @@ class DatabaseService {
 
   Future<void> toggleFavorite({
     required String sourceId,
-    required int itemId,
+    required String link,
     required bool isFavorite,
   }) async {
     if (sourceId.toLowerCase() == 'ntv' && _ntvFeedDatabase != null) {
-      final item = await _ntvFeedDatabase!.ntvFeedDao.findNtvFeedItemById(
-        itemId,
+      final item = await _ntvFeedDatabase!.ntvFeedDao.findNtvFeedItemByLink(
+        link,
       );
       if (item != null) {
         await _ntvFeedDatabase!.ntvFeedDao.updateNtvFeedItem(
@@ -183,7 +201,7 @@ class DatabaseService {
     } else {
       final db = _rssDatabases[sourceId.toLowerCase()];
       if (db != null) {
-        final item = await db.rssDao.findRssItemById(itemId);
+        final item = await db.rssDao.findRssItemByLink(link);
         if (item != null) {
           await db.rssDao.updateRssItem(item.copyWith(isFavorite: isFavorite));
         }

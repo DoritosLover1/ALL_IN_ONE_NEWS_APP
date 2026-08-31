@@ -96,7 +96,7 @@ class _$RssDatabase extends RssDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-          'CREATE TABLE IF NOT EXISTS `RssItem` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `sourceId` TEXT NOT NULL, `sourceTitle` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `content` TEXT, `link` TEXT NOT NULL, `pubDate` TEXT, `imageUrl` TEXT, `category` TEXT, `author` TEXT, `isFavorite` INTEGER NOT NULL, `isRead` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)',
+          'CREATE TABLE IF NOT EXISTS `RssItem` (`link` TEXT NOT NULL, `sourceId` TEXT NOT NULL, `sourceTitle` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `content` TEXT, `pubDate` TEXT, `imageUrl` TEXT, `category` TEXT, `author` TEXT, `isFavorite` INTEGER NOT NULL, `isRead` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY (`link`))',
         );
 
         await callback?.onCreate?.call(database, version);
@@ -118,13 +118,12 @@ class _$RssDao extends RssDao {
         database,
         'RssItem',
         (RssItem item) => <String, Object?>{
-          'id': item.id,
+          'link': item.link,
           'sourceId': item.sourceId,
           'sourceTitle': item.sourceTitle,
           'title': item.title,
           'description': item.description,
           'content': item.content,
-          'link': item.link,
           'pubDate': item.pubDate,
           'imageUrl': item.imageUrl,
           'category': item.category,
@@ -138,15 +137,14 @@ class _$RssDao extends RssDao {
       _rssItemUpdateAdapter = UpdateAdapter(
         database,
         'RssItem',
-        ['id'],
+        ['link'],
         (RssItem item) => <String, Object?>{
-          'id': item.id,
+          'link': item.link,
           'sourceId': item.sourceId,
           'sourceTitle': item.sourceTitle,
           'title': item.title,
           'description': item.description,
           'content': item.content,
-          'link': item.link,
           'pubDate': item.pubDate,
           'imageUrl': item.imageUrl,
           'category': item.category,
@@ -160,15 +158,14 @@ class _$RssDao extends RssDao {
       _rssItemDeletionAdapter = DeletionAdapter(
         database,
         'RssItem',
-        ['id'],
+        ['link'],
         (RssItem item) => <String, Object?>{
-          'id': item.id,
+          'link': item.link,
           'sourceId': item.sourceId,
           'sourceTitle': item.sourceTitle,
           'title': item.title,
           'description': item.description,
           'content': item.content,
-          'link': item.link,
           'pubDate': item.pubDate,
           'imageUrl': item.imageUrl,
           'category': item.category,
@@ -197,13 +194,12 @@ class _$RssDao extends RssDao {
     return _queryAdapter.queryList(
       'SELECT * FROM RssItem ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         sourceId: row['sourceId'] as String,
         sourceTitle: row['sourceTitle'] as String,
         title: row['title'] as String,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -220,13 +216,12 @@ class _$RssDao extends RssDao {
     return _queryAdapter.queryListStream(
       'SELECT * FROM RssItem ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         sourceId: row['sourceId'] as String,
         sourceTitle: row['sourceTitle'] as String,
         title: row['title'] as String,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -241,41 +236,16 @@ class _$RssDao extends RssDao {
   }
 
   @override
-  Future<RssItem?> findRssItemById(int id) async {
-    return _queryAdapter.query(
-      'SELECT * FROM RssItem WHERE id = ?1',
-      mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
-        sourceId: row['sourceId'] as String,
-        sourceTitle: row['sourceTitle'] as String,
-        title: row['title'] as String,
-        description: row['description'] as String?,
-        content: row['content'] as String?,
-        link: row['link'] as String,
-        pubDate: row['pubDate'] as String?,
-        imageUrl: row['imageUrl'] as String?,
-        category: row['category'] as String?,
-        author: row['author'] as String?,
-        isFavorite: (row['isFavorite'] as int) != 0,
-        isRead: (row['isRead'] as int) != 0,
-        createdAt: row['createdAt'] as int?,
-      ),
-      arguments: [id],
-    );
-  }
-
-  @override
   Future<RssItem?> findRssItemByLink(String link) async {
     return _queryAdapter.query(
       'SELECT * FROM RssItem WHERE link = ?1 LIMIT 1',
       mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         sourceId: row['sourceId'] as String,
         sourceTitle: row['sourceTitle'] as String,
         title: row['title'] as String,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -293,13 +263,12 @@ class _$RssDao extends RssDao {
     return _queryAdapter.queryList(
       'SELECT * FROM RssItem WHERE isFavorite = 1 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         sourceId: row['sourceId'] as String,
         sourceTitle: row['sourceTitle'] as String,
         title: row['title'] as String,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -316,13 +285,12 @@ class _$RssDao extends RssDao {
     return _queryAdapter.queryList(
       'SELECT * FROM RssItem WHERE isRead = 0 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         sourceId: row['sourceId'] as String,
         sourceTitle: row['sourceTitle'] as String,
         title: row['title'] as String,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -339,13 +307,12 @@ class _$RssDao extends RssDao {
     return _queryAdapter.queryList(
       'SELECT * FROM RssItem WHERE title LIKE ?1 OR description LIKE ?1 ORDER BY createdAt DESC',
       mapper: (Map<String, Object?> row) => RssItem(
-        id: row['id'] as int?,
+        link: row['link'] as String,
         sourceId: row['sourceId'] as String,
         sourceTitle: row['sourceTitle'] as String,
         title: row['title'] as String,
         description: row['description'] as String?,
         content: row['content'] as String?,
-        link: row['link'] as String,
         pubDate: row['pubDate'] as String?,
         imageUrl: row['imageUrl'] as String?,
         category: row['category'] as String?,
@@ -375,10 +342,10 @@ class _$RssDao extends RssDao {
   }
 
   @override
-  Future<void> deleteRssItemById(int id) async {
+  Future<void> deleteRssItemByLink(String link) async {
     await _queryAdapter.queryNoReturn(
-      'DELETE FROM RssItem WHERE id = ?1',
-      arguments: [id],
+      'DELETE FROM RssItem WHERE link = ?1',
+      arguments: [link],
     );
   }
 
@@ -391,7 +358,7 @@ class _$RssDao extends RssDao {
   Future<int> insertRssItem(RssItem item) {
     return _rssItemInsertionAdapter.insertAndReturnId(
       item,
-      OnConflictStrategy.replace,
+      OnConflictStrategy.ignore,
     );
   }
 
@@ -399,7 +366,7 @@ class _$RssDao extends RssDao {
   Future<List<int>> insertRssItems(List<RssItem> items) {
     return _rssItemInsertionAdapter.insertListAndReturnIds(
       items,
-      OnConflictStrategy.replace,
+      OnConflictStrategy.ignore,
     );
   }
 

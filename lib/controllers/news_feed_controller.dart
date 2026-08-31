@@ -93,17 +93,16 @@ class NewsFeedController extends ChangeNotifier {
   }
 
   Future<void> toggleBookmark(UnifiedNewsItem item) async {
-    if (item.id == null) return;
     final newFavoriteStatus = !item.isFavorite;
 
     await DatabaseService.instance.toggleFavorite(
       sourceId: item.sourceId,
-      itemId: item.id!,
+      link: item.link,
       isFavorite: newFavoriteStatus,
     );
 
     _feedItems = _feedItems.map((feedItem) {
-      if (feedItem.id == item.id && feedItem.sourceId == item.sourceId) {
+      if (feedItem.link == item.link) {
         return feedItem.copyWith(isFavorite: newFavoriteStatus);
       }
       return feedItem;

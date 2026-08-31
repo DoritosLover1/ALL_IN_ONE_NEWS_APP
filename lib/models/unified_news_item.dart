@@ -5,7 +5,6 @@ import 'package:flutter_medic/data/database/entities/rss_item.dart';
 import 'package:flutter_medic/services/parsers/base_news_parser.dart';
 
 class UnifiedNewsItem {
-  final int? id;
   final String sourceId;
   final String sourceTitle;
   final String sourceBadgeText;
@@ -27,7 +26,6 @@ class UnifiedNewsItem {
   final int createdAt;
 
   UnifiedNewsItem({
-    this.id,
     required this.sourceId,
     required this.sourceTitle,
     required this.sourceBadgeText,
@@ -59,7 +57,6 @@ class UnifiedNewsItem {
           );
 
     return UnifiedNewsItem(
-      id: item.id,
       sourceId: item.sourceId,
       sourceTitle: item.sourceTitle.isNotEmpty ? item.sourceTitle : meta.title,
       sourceBadgeText: meta.badgeText,
@@ -89,7 +86,6 @@ class UnifiedNewsItem {
         : BaseNewsParser.getFallbackImageForSource('ntv', item.category);
 
     return UnifiedNewsItem(
-      id: item.id,
       sourceId: 'ntv',
       sourceTitle: 'NTV',
       sourceBadgeText: meta.badgeText,
@@ -113,7 +109,6 @@ class UnifiedNewsItem {
   }
 
   UnifiedNewsItem copyWith({
-    int? id,
     String? sourceId,
     String? sourceTitle,
     String? sourceBadgeText,
@@ -135,7 +130,6 @@ class UnifiedNewsItem {
     int? createdAt,
   }) {
     return UnifiedNewsItem(
-      id: id ?? this.id,
       sourceId: sourceId ?? this.sourceId,
       sourceTitle: sourceTitle ?? this.sourceTitle,
       sourceBadgeText: sourceBadgeText ?? this.sourceBadgeText,
