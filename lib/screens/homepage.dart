@@ -29,7 +29,7 @@ class _HomepageState extends State<Homepage> {
         index: _currentTabIndex,
         children: [
           NewsFeedView(controller: _feedController),
-          const LiveBroadcastsScreen(),
+          LiveBroadcastsScreen(isTabActive: _currentTabIndex == 1),
           SavedNewsScreen(controller: _feedController),
         ],
       ),

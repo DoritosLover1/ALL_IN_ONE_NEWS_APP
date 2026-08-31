@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 
-class CustomBottomNavbar extends StatelessWidget {
+class CustomBottomNavbar extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
@@ -10,6 +10,39 @@ class CustomBottomNavbar extends StatelessWidget {
     required this.currentIndex,
     required this.onTap,
   });
+
+  @override
+  State<CustomBottomNavbar> createState() => _CustomBottomNavbarState();
+}
+
+class _CustomBottomNavbarState extends State<CustomBottomNavbar>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
+  late Animation<double> _waveAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.85, end: 1.25).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
+    _waveAnimation = Tween<double>(begin: 0.2, end: 0.65).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +55,17 @@ class CustomBottomNavbar extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 16,
-            offset: const Offset(0, -4),
+            blurRadius: 12,
+            offset: const Offset(0, -3),
           ),
         ],
       ),
       child: SafeArea(
         top: false,
         child: SizedBox(
-          height: 64,
+          height: 54,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildNavItem(
                 context: context,
@@ -43,7 +76,7 @@ class CustomBottomNavbar extends StatelessWidget {
               _buildNavItem(
                 context: context,
                 index: 1,
-                label: 'Canlı Yayınlar',
+                label: 'Canlı Yayın',
                 icon: Icons.sensors_rounded,
                 hasLiveBadge: true,
               ),
@@ -69,47 +102,86 @@ class CustomBottomNavbar extends StatelessWidget {
   }) {
     final theme = Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
-    final isSelected = currentIndex == index;
+    final isSelected = widget.currentIndex == index;
     final color = isSelected ? primaryColor : const Color(0xFF94A3B8);
 
-    return InkWell(
-      onTap: () => onTap(index),
-      borderRadius: BorderRadius.circular(16),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Icon(icon, size: 24, color: color),
-                if (hasLiveBadge)
-                  Positioned(
-                    top: -2,
-                    right: -3,
-                    child: Container(
-                      width: 7,
-                      height: 7,
-                      decoration: const BoxDecoration(
-                        color: AppColors.darkRed,
-                        shape: BoxShape.circle,
+    return Expanded(
+      child: InkWell(
+        onTap: () => widget.onTap(index),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  Icon(icon, size: 21, color: color),
+                  if (hasLiveBadge)
+                    Positioned(
+                      top: -3,
+                      right: -5,
+                      child: AnimatedBuilder(
+                        animation: _pulseController,
+                        builder: (context, child) {
+                          return Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Transform.scale(
+                                scale: _pulseAnimation.value * 1.5,
+                                child: Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.darkRed.withValues(
+                                      alpha: _waveAnimation.value,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                              Transform.scale(
+                                scale: _pulseAnimation.value,
+                                child: Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.darkRed,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.darkRed.withValues(
+                                          alpha: 0.6,
+                                        ),
+                                        blurRadius: 4,
+                                        spreadRadius: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 11.5,
-                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
+                ],
               ),
-            ),
-          ],
+              const SizedBox(height: 2),
+              Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 11,
+                  fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
+                  letterSpacing: -0.2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

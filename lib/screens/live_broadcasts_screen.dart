@@ -6,7 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class LiveBroadcastsScreen extends StatefulWidget {
-  const LiveBroadcastsScreen({super.key});
+  final bool isTabActive;
+
+  const LiveBroadcastsScreen({super.key, this.isTabActive = true});
 
   @override
   State<LiveBroadcastsScreen> createState() => _LiveBroadcastsScreenState();
@@ -33,6 +35,18 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
       ),
     );
     _resolveActiveChannelStream(_activeChannel);
+  }
+
+  @override
+  void didUpdateWidget(covariant LiveBroadcastsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isTabActive != oldWidget.isTabActive) {
+      if (widget.isTabActive) {
+        _ytController.setVolume(100);
+      } else {
+        _ytController.setVolume(20);
+      }
+    }
   }
 
   @override
