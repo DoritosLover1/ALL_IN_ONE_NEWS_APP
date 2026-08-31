@@ -100,7 +100,9 @@ void main() {
     WebViewPlatform.instance = MockWebViewPlatform();
   });
 
-  testWidgets('App smoke test', (WidgetTester tester) async {
+  testWidgets('App smoke test renders SplashScreen and logo', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       ProviderScope(
         child: provider.MultiProvider(
@@ -112,12 +114,12 @@ void main() {
               create: (context) => BottomTabState(),
             ),
           ],
-          child: const MyApp(),
+          child: const MyApp(autoNavigateSplash: false),
         ),
       ),
     );
 
-    expect(find.text('SENİN HABERLERİN'), findsOneWidget);
+    expect(find.text('HABER MERKEZİ'), findsOneWidget);
   });
 
   testWidgets('SyncLoadingScreen renders progress and title', (

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
-import 'package:flutter_medic/screens/firstpage.dart';
-import 'package:flutter_medic/screens/homepage.dart';
-import 'package:flutter_medic/services/user_preferences_service.dart';
+import 'package:flutter_medic/screens/splash_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final isOnboardingDone = await UserPreferencesService.isOnboardingCompleted();
 
   runApp(
     ProviderScope(
@@ -19,15 +16,16 @@ void main() async {
             create: (context) => BottomTabState(),
           ),
         ],
-        child: MyApp(isOnboardingDone: isOnboardingDone),
+        child: const MyApp(),
       ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool isOnboardingDone;
-  const MyApp({super.key, this.isOnboardingDone = false});
+  final bool autoNavigateSplash;
+
+  const MyApp({super.key, this.autoNavigateSplash = true});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: themeProvider.themeData,
-          home: isOnboardingDone ? const Homepage() : const Firstpage(),
+          home: SplashScreen(autoNavigate: autoNavigateSplash),
         );
       },
     );
