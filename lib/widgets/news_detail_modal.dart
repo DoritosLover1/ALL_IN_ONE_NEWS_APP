@@ -82,11 +82,13 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
             }
           },
           onWebResourceError: (error) {
-            if (mounted) {
-              setState(() {
-                _isLoading = false;
-                _hasError = true;
-              });
+            if (error.isForMainFrame ?? true) {
+              if (mounted) {
+                setState(() {
+                  _isLoading = false;
+                  _hasError = true;
+                });
+              }
             }
           },
         ),
