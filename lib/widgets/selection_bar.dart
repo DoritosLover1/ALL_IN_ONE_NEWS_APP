@@ -30,10 +30,7 @@ class SelectionBar extends StatelessWidget {
         ),
         const SizedBox(width: 6),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 7,
-            vertical: 2,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
           decoration: BoxDecoration(
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(10),

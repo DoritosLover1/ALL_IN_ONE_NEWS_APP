@@ -21,15 +21,8 @@ class CustomSearchBar extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(
-          color: Colors.grey.shade400,
-          fontSize: 14,
-        ),
-        prefixIcon: Icon(
-          Icons.search,
-          size: 20,
-          color: Colors.grey.shade500,
-        ),
+        hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+        prefixIcon: Icon(Icons.search, size: 20, color: Colors.grey.shade500),
         suffixIcon: controller.text.isNotEmpty
             ? IconButton(
                 icon: const Icon(Icons.clear, size: 18),
@@ -41,10 +34,7 @@ class CustomSearchBar extends StatelessWidget {
             : null,
         filled: true,
         fillColor: Colors.grey.shade100,
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 0,
-          horizontal: 16,
-        ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide.none,

@@ -17,9 +17,7 @@ Future<bool?> showConfirmationDialog({
     barrierDismissible: true,
     builder: (BuildContext dialogContext) {
       return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         elevation: 8,
         backgroundColor: theme.colorScheme.surface,
         insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
@@ -32,20 +30,14 @@ Future<bool?> showConfirmationDialog({
                 width: 64,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.12),
+                  color: primaryColor.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: primaryColor.withOpacity(0.2),
+                    color: primaryColor.withValues(alpha: 0.2),
                     width: 2,
                   ),
                 ),
-                child: Center(
-                  child: Icon(
-                    icon,
-                    color: primaryColor,
-                    size: 32,
-                  ),
-                ),
+                child: Center(child: Icon(icon, color: primaryColor, size: 32)),
               ),
               const SizedBox(height: 18),
               Text(
@@ -66,7 +58,7 @@ Future<bool?> showConfirmationDialog({
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(0.08),
+                    color: primaryColor.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
