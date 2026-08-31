@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_medic/data/mock_sources.dart';
+import 'package:flutter_medic/constants/news_sources.dart';
 import 'package:flutter_medic/models/selectable_item.dart';
 
 class SourceSelectionController extends ChangeNotifier {
-  final List<SelectableItem> _allSources = initialSourcesData;
+  final List<SelectableItem> _allSources = kAllNewsSources;
   final Set<String> _selectedIds = {
     'haberturk',
     'trt',
