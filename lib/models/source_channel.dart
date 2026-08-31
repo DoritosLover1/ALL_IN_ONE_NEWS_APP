@@ -11,7 +11,6 @@ class SourceChannel {
   final String embedUrl;
   final String thumbnailUrl;
   final bool isLive;
-  final String viewerCount;
   final String programTitle;
 
   const SourceChannel({
@@ -25,7 +24,6 @@ class SourceChannel {
     required this.embedUrl,
     required this.thumbnailUrl,
     this.isLive = true,
-    this.viewerCount = '14.2k',
     this.programTitle = 'Canlı Yayın & Güncel Bülten',
   });
 }
@@ -37,13 +35,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Ulusal Haber',
     badgeText: 'TRT',
     badgeColor: Color(0xFF0F52BA),
-    youtubeVideoId: 's2x41d6bN48',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=s2x41d6bN48',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/s2x41d6bN48?autoplay=1&mute=0',
+    youtubeVideoId: '8_B0hQf5Zf4',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=8_B0hQf5Zf4',
+    embedUrl: 'https://www.youtube.com/embed/8_B0hQf5Zf4?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&q=80',
-    viewerCount: '34.8k',
-    programTitle: 'Ana Haber Bülteni',
+    programTitle: 'TRT Haber Canlı Yayın',
   ),
   SourceChannel(
     id: 'ntv',
@@ -51,13 +47,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Ekonomi & Gündem',
     badgeText: 'NTV',
     badgeColor: Color(0xFF008751),
-    youtubeVideoId: 'XDEb1s-hM_0',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=XDEb1s-hM_0',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/XDEb1s-hM_0?autoplay=1&mute=0',
+    youtubeVideoId: 'XEJM4Hcgd3M',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=XEJM4Hcgd3M',
+    embedUrl: 'https://www.youtube.com/embed/XEJM4Hcgd3M?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',
-    viewerCount: '28.1k',
-    programTitle: 'Piyasa Ekranı & Son Dakika',
+    programTitle: 'NTV Canlı Yayın & Gündem',
   ),
   SourceChannel(
     id: 'haberturk',
@@ -65,13 +59,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Gündem & Tartışma',
     badgeText: 'HT',
     badgeColor: Color(0xFFE50014),
-    youtubeVideoId: '713pB0P3y9w',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=713pB0P3y9w',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/713pB0P3y9w?autoplay=1&mute=0',
+    youtubeVideoId: 'p9j8uS8N5_k',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=p9j8uS8N5_k',
+    embedUrl: 'https://www.youtube.com/embed/p9j8uS8N5_k?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80',
-    viewerCount: '22.4k',
-    programTitle: 'Türkiye Nabzı Özel',
+    programTitle: 'Habertürk TV Canlı',
   ),
   SourceChannel(
     id: 'sozcu',
@@ -79,13 +71,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Haber & Gündem',
     badgeText: 'SZC',
     badgeColor: Color(0xFFD6181F),
-    youtubeVideoId: 'F_fD-iF-QyE',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=F_fD-iF-QyE',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/F_fD-iF-QyE?autoplay=1&mute=0',
+    youtubeVideoId: '1B6GZ2q3j9k',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=1B6GZ2q3j9k',
+    embedUrl: 'https://www.youtube.com/embed/1B6GZ2q3j9k?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&q=80',
-    viewerCount: '41.5k',
-    programTitle: 'Sözcü Ana Haber',
+    programTitle: 'Sözcü TV Canlı Yayın',
   ),
   SourceChannel(
     id: 'cnnturk',
@@ -93,13 +83,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Haber & Dünya',
     badgeText: 'CNN',
     badgeColor: Color(0xFFCC0000),
-    youtubeVideoId: 'e_04hYg5h3Y',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=e_04hYg5h3Y',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/e_04hYg5h3Y?autoplay=1&mute=0',
+    youtubeVideoId: 'V6W32aQ_m5U',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=V6W32aQ_m5U',
+    embedUrl: 'https://www.youtube.com/embed/V6W32aQ_m5U?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl: 'https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?w=800&q=80',
-    viewerCount: '19.3k',
-    programTitle: 'Dünya Raporu & Sıcak Bölge',
+    programTitle: 'CNN Türk Canlı',
   ),
   SourceChannel(
     id: 'ahaber',
@@ -107,13 +95,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Haber & Politika',
     badgeText: 'AH',
     badgeColor: Color(0xFF0A2B66),
-    youtubeVideoId: 'x0x4Z0Z4x0x',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=x0x4Z0Z4x0x',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/x0x4Z0Z4x0x?autoplay=1&mute=0',
+    youtubeVideoId: '8v_s7e9U3X4',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=8v_s7e9U3X4',
+    embedUrl: 'https://www.youtube.com/embed/8v_s7e9U3X4?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
-    viewerCount: '15.9k',
-    programTitle: 'Ajans Gün Ortası',
+    programTitle: 'A Haber Canlı Yayın',
   ),
   SourceChannel(
     id: 'haberglobal',
@@ -121,13 +107,11 @@ const List<SourceChannel> initialLiveChannels = [
     category: 'Haber & Analiz',
     badgeText: 'HG',
     badgeColor: Color(0xFF2C3E50),
-    youtubeVideoId: '9_t6w9_RkWm',
-    liveStreamUrl: 'https://www.youtube.com/watch?v=9_t6w9_RkWm',
-    embedUrl:
-        'https://www.youtube-nocookie.com/embed/9_t6w9_RkWm?autoplay=1&mute=0',
+    youtubeVideoId: 'v9E7eN-9y8w',
+    liveStreamUrl: 'https://www.youtube.com/watch?v=v9E7eN-9y8w',
+    embedUrl: 'https://www.youtube.com/embed/v9E7eN-9y8w?autoplay=1&playsinline=1&rel=0&modestbranding=1',
     thumbnailUrl:
         'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80',
-    viewerCount: '11.2k',
-    programTitle: 'Küresel Bakış',
+    programTitle: 'Haber Global Canlı',
   ),
 ];
