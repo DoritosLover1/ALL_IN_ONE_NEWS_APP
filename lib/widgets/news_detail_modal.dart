@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -314,13 +315,12 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
           if (item.imageUrl != null && item.imageUrl!.isNotEmpty)
             ClipRRect(
               borderRadius: BorderRadius.circular(14),
-              child: Image.network(
-                item.imageUrl!,
+              child: CachedNetworkImage(
+                imageUrl: item.imageUrl!,
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    const SizedBox.shrink(),
+                errorWidget: (context, url, error) => const SizedBox.shrink(),
               ),
             ),
           const SizedBox(height: 16),

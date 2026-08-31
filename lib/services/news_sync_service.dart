@@ -108,7 +108,7 @@ class NewsSyncService {
     try {
       final response = await http
           .get(Uri.parse(ntvFeedEndpoint), headers: _customHeaders)
-          .timeout(const Duration(seconds: 5));
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         final xmlString = utf8.decode(response.bodyBytes, allowMalformed: true);
@@ -204,7 +204,7 @@ class NewsSyncService {
     try {
       final response = await http
           .get(Uri.parse(url), headers: _customHeaders)
-          .timeout(const Duration(seconds: 5));
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         final xmlString = utf8.decode(response.bodyBytes, allowMalformed: true);

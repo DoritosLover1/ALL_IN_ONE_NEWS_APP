@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
@@ -48,21 +49,21 @@ class BreakingNewsCard extends StatelessWidget {
                 children: [
                   AspectRatio(
                     aspectRatio: 1.7,
-                    child: Image.network(
-                      imageUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: const Color(0xFF0F172A),
-                          child: const Center(
-                            child: Icon(
-                              Icons.newspaper_rounded,
-                              size: 48,
-                              color: Colors.white38,
-                            ),
+                      placeholder: (context, url) =>
+                          Container(color: const Color(0xFF0F172A)),
+                      errorWidget: (context, url, error) => Container(
+                        color: const Color(0xFF0F172A),
+                        child: const Center(
+                          child: Icon(
+                            Icons.newspaper_rounded,
+                            size: 48,
+                            color: Colors.white38,
                           ),
-                        );
-                      },
+                        ),
+                      ),
                     ),
                   ),
 

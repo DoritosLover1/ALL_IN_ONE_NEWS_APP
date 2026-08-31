@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
@@ -133,19 +134,19 @@ class NewsCardItem extends StatelessWidget {
                           width: 78,
                           height: 78,
                           color: const Color(0xFFF1F5F9),
-                          child: Image.network(
-                            imageUrl,
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: const Color(0xFFE2E8F0),
-                                child: const Icon(
-                                  Icons.image_outlined,
-                                  color: Color(0xFF94A3B8),
-                                  size: 28,
-                                ),
-                              );
-                            },
+                            placeholder: (context, url) =>
+                                Container(color: const Color(0xFFF1F5F9)),
+                            errorWidget: (context, url, error) => Container(
+                              color: const Color(0xFFE2E8F0),
+                              child: const Icon(
+                                Icons.image_outlined,
+                                color: Color(0xFF94A3B8),
+                                size: 28,
+                              ),
+                            ),
                           ),
                         ),
                       ),
