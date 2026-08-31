@@ -98,6 +98,36 @@ void main() {
       expect(item.category, equals('Dünya'));
       expect(item.imageUrl, equals('https://iaahbr.tmgrup.com.tr/test.jpeg'));
     });
+
+    const sampleCnnturkXml = '''<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<item>
+<guid isPermaLink="true">6a95e733a8669cff9e1f8ae5</guid>
+<link>https://www.cnnturk.com/turkiye/test-haber</link>
+<title><![CDATA[CNN Türk Başlık]]></title>
+<description><![CDATA[CNN Türk Açıklama]]></description>
+<pubDate>Mon, 31 Aug 2026 23:43:20 GMT</pubDate>
+<image>https://image.cnnturk.com/i/cnnturk/75/720x490/test.jpg</image>
+</item>
+</channel>
+</rss>''';
+
+    test('CNN Türk image etiketi başarıyla ayrıştırılmalı', () {
+      final items = RssNewsParser.parse(
+        sourceId: 'cnnturk',
+        sourceTitle: 'CNN Türk',
+        xmlContent: sampleCnnturkXml,
+      );
+
+      expect(items.length, equals(1));
+      final item = items.first;
+      expect(item.title, equals('CNN Türk Başlık'));
+      expect(
+        item.imageUrl,
+        equals('https://image.cnnturk.com/i/cnnturk/75/720x490/test.jpg'),
+      );
+    });
   });
 
   group('BaseNewsParser Helper Tests', () {
