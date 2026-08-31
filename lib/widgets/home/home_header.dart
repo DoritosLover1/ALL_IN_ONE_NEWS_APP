@@ -4,13 +4,11 @@ import 'package:flutter_medic/constants/universaltheme.dart';
 class HomeHeader extends StatelessWidget {
   final int selectedSourceCount;
   final VoidCallback onFilterTap;
-  final VoidCallback? onAvatarTap;
 
   const HomeHeader({
     super.key,
     required this.selectedSourceCount,
     required this.onFilterTap,
-    this.onAvatarTap,
   });
 
   @override
@@ -101,29 +99,6 @@ class HomeHeader extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-
-                  GestureDetector(
-                    onTap: onAvatarTap,
-                    child: Container(
-                      width: 38,
-                      height: 38,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF97316),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'T',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
                       ),
                     ),
                   ),
