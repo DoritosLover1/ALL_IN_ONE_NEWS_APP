@@ -153,40 +153,30 @@ class RssNewsParser {
     String? description,
     String? content,
   ) {
-    for (final child in element.children.whereType<XmlElement>()) {
+    for (final child in element.descendantElements) {
       final local = child.name.local.toLowerCase();
       final qualified = child.name.qualified.toLowerCase();
 
-      if (local == 'enclosure') {
-        final url = child.getAttribute('url') ?? child.getAttribute('src');
-        if (_isValidUrl(url)) return url;
+      for (final attr in child.attributes) {
+        final attrVal = attr.value.trim();
+        if (_isValidUrl(attrVal) &&
+            (attr.name.local.toLowerCase() == 'url' ||
+                attr.name.local.toLowerCase() == 'src' ||
+                attr.name.local.toLowerCase() == 'href')) {
+          return attrVal;
+        }
       }
 
-      if (local == 'content' || qualified.contains('content')) {
-        final url = child.getAttribute('url') ?? child.getAttribute('src');
-        if (_isValidUrl(url)) return url;
-      }
-
-      if (local == 'thumbnail' || qualified.contains('thumbnail')) {
-        final url = child.getAttribute('url') ?? child.getAttribute('src');
-        if (_isValidUrl(url)) return url;
-      }
-
-      if (local == 'image' || qualified.contains('image')) {
-        final innerUrl = child
-            .findElements('url')
-            .firstOrNull
-            ?.innerText
-            .trim();
-        if (_isValidUrl(innerUrl)) return innerUrl;
-
-        final textUrl = child.innerText.trim();
-        if (_isValidUrl(textUrl)) return textUrl;
-      }
-
-      if (local.contains('resim') ||
+      if (local == 'image' ||
+          local == 'thumbnail' ||
+          local == 'content' ||
+          local == 'enclosure' ||
+          local.contains('resim') ||
           local.contains('foto') ||
-          local.contains('gorsel')) {
+          local.contains('gorsel') ||
+          qualified.contains('media') ||
+          qualified.contains('thumbnail') ||
+          qualified.contains('content')) {
         final textUrl = child.innerText.trim();
         if (_isValidUrl(textUrl)) return textUrl;
       }

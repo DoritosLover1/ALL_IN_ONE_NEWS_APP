@@ -48,6 +48,8 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
         loop: false,
         enableJavaScript: true,
         showVideoAnnotations: false,
+        playsInline: true,
+        origin: 'https://www.youtube-nocookie.com',
       ),
     );
 
