@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/source_channel.dart';
@@ -14,9 +16,16 @@ class LiveBroadcastsScreen extends StatefulWidget {
   State<LiveBroadcastsScreen> createState() => _LiveBroadcastsScreenState();
 }
 
-class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
+class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
+    with SingleTickerProviderStateMixin {
   late SourceChannel _activeChannel;
   late YoutubePlayerController _ytController;
+  StreamSubscription<YoutubePlayerValue>? _playerSub;
+  PlayerState _playerState = PlayerState.unknown;
+
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
+  late Animation<double> _waveAnimation;
 
   @override
   void initState() {
@@ -24,7 +33,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
     _activeChannel = initialLiveChannels.first;
     _ytController = YoutubePlayerController.fromVideoId(
       videoId: _activeChannel.youtubeVideoId,
-      autoPlay: true,
+      autoPlay: false,
       params: const YoutubePlayerParams(
         showControls: true,
         showFullscreenButton: true,
@@ -34,6 +43,28 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
         showVideoAnnotations: false,
       ),
     );
+
+    _playerSub = _ytController.stream.listen((value) {
+      if (mounted && _playerState != value.playerState) {
+        setState(() {
+          _playerState = value.playerState;
+        });
+      }
+    });
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.85, end: 1.25).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
+    _waveAnimation = Tween<double>(begin: 0.2, end: 0.65).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
     _resolveActiveChannelStream(_activeChannel);
   }
 
@@ -41,27 +72,37 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
   void didUpdateWidget(covariant LiveBroadcastsScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isTabActive != oldWidget.isTabActive) {
-      if (widget.isTabActive) {
-        _ytController.setVolume(100);
-      } else {
-        _ytController.setVolume(20);
+      if (!widget.isTabActive) {
+        _ytController.pauseVideo();
       }
     }
   }
 
   @override
   void dispose() {
+    _playerSub?.cancel();
+    _pulseController.dispose();
     _ytController.close();
     super.dispose();
   }
 
-  void _selectChannel(SourceChannel channel) {
-    if (_activeChannel.id == channel.id) return;
-    setState(() {
-      _activeChannel = channel;
-    });
-    _ytController.loadVideoById(videoId: channel.youtubeVideoId);
-    _resolveActiveChannelStream(channel);
+  bool get _isPlaying => _playerState == PlayerState.playing;
+
+  void _togglePlayPause(SourceChannel channel) {
+    if (_activeChannel.id != channel.id) {
+      setState(() {
+        _activeChannel = channel;
+      });
+      _ytController.loadVideoById(videoId: channel.youtubeVideoId);
+      _ytController.playVideo();
+      _resolveActiveChannelStream(channel);
+    } else {
+      if (_isPlaying) {
+        _ytController.pauseVideo();
+      } else {
+        _ytController.playVideo();
+      }
+    }
   }
 
   Future<void> _resolveActiveChannelStream(SourceChannel channel) async {
@@ -72,7 +113,12 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
     if (mounted &&
         _activeChannel.id == channel.id &&
         liveId != channel.youtubeVideoId) {
-      _ytController.loadVideoById(videoId: liveId);
+      if (_isPlaying) {
+        _ytController.loadVideoById(videoId: liveId);
+        _ytController.playVideo();
+      } else {
+        _ytController.cueVideoById(videoId: liveId);
+      }
     }
   }
 
@@ -97,15 +143,48 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
         elevation: 0,
         title: Row(
           children: [
-            Container(
-              width: 8,
-              height: 8,
-              decoration: const BoxDecoration(
-                color: AppColors.darkRed,
-                shape: BoxShape.circle,
-              ),
+            AnimatedBuilder(
+              animation: _pulseController,
+              builder: (context, child) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Transform.scale(
+                      scale: _pulseAnimation.value * 1.5,
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: AppColors.darkRed.withValues(
+                            alpha: _waveAnimation.value,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: _pulseAnimation.value,
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: AppColors.darkRed,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.darkRed.withValues(alpha: 0.6),
+                              blurRadius: 4,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 10),
             Text(
               'Canlı Yayınlar',
               style: theme.textTheme.headlineSmall?.copyWith(
@@ -132,7 +211,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Tüm Canlı Kanallar',
+                    'Size Özel Canlı Kanallar',
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w800,
@@ -173,6 +252,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                   child: _buildChannelCard(
                     channel: channel,
                     isActive: isCurrentActive,
+                    isPlaying: isCurrentActive && _isPlaying,
                     primaryColor: primaryColor,
                   ),
                 );
@@ -276,6 +356,17 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                     ),
                   ),
                   IconButton(
+                    onPressed: () => _togglePlayPause(_activeChannel),
+                    icon: Icon(
+                      _isPlaying
+                          ? Icons.pause_circle_filled_rounded
+                          : Icons.play_circle_fill_rounded,
+                      color: Colors.white,
+                      size: 32,
+                    ),
+                    tooltip: _isPlaying ? 'Durdur' : 'Oynat',
+                  ),
+                  IconButton(
                     onPressed: _openInYouTubeApp,
                     icon: const Icon(
                       Icons.open_in_new_rounded,
@@ -296,10 +387,11 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
   Widget _buildChannelCard({
     required SourceChannel channel,
     required bool isActive,
+    required bool isPlaying,
     required Color primaryColor,
   }) {
     return InkWell(
-      onTap: () => _selectChannel(channel),
+      onTap: () => _togglePlayPause(channel),
       borderRadius: BorderRadius.circular(18),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -367,7 +459,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
-                            'İzleniyor',
+                            isPlaying ? 'Oynatılıyor' : 'Seçili (Duraklatıldı)',
                             style: TextStyle(
                               color: primaryColor,
                               fontWeight: FontWeight.w800,
@@ -398,7 +490,11 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen> {
               ),
               alignment: Alignment.center,
               child: Icon(
-                isActive ? Icons.play_arrow_rounded : Icons.play_arrow_outlined,
+                isActive
+                    ? (isPlaying
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_rounded)
+                    : Icons.play_arrow_outlined,
                 color: isActive ? Colors.white : AppColors.black,
                 size: 22,
               ),
