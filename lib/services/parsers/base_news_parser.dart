@@ -100,41 +100,34 @@ abstract class BaseNewsParser {
   }
 
   static String getFallbackImageForSource(String sourceId, [String? category]) {
-    final cat = (category ?? '').toLowerCase();
-    if (cat.contains('ekonomi') ||
-        cat.contains('para') ||
-        cat.contains('finans')) {
-      return 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80';
-    }
-    if (cat.contains('spor') ||
-        cat.contains('futbol') ||
-        cat.contains('basketbol')) {
-      return 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&q=80';
-    }
-    if (cat.contains('teknoloji') ||
-        cat.contains('bilim') ||
-        cat.contains('yazılım')) {
-      return 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80';
-    }
-    if (cat.contains('dünya') ||
-        cat.contains('dunya') ||
-        cat.contains('küresel')) {
-      return 'https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?w=800&q=80';
-    }
-
-    switch (sourceId.toLowerCase()) {
-      case 'trt':
-        return 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&q=80';
-      case 'ntv':
-        return 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80';
+    final sId = sourceId.toLowerCase();
+    switch (sId) {
       case 'haberturk':
-        return 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&q=80';
+        return 'assets/logos/haberturk.jpg';
+      case 'trt':
+        return 'assets/logos/trt.jpg';
+      case 'ntv':
+        return 'assets/logos/ntv.jpg';
       case 'sozcu':
-        return 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80';
+        return 'assets/logos/sozcu.jpg';
+      case 'ahaber':
+        return 'assets/logos/ahaber.jpg';
       case 'cnnturk':
-        return 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80';
+        return 'assets/logos/cnnturk.jpg';
+      case 'haberglobal':
+        return 'assets/logos/haberglobal.jpg';
+      case 'yenisafak':
+        return 'assets/logos/yenisafak.jpg';
+      case 'takvim':
+        return 'assets/logos/takvim.jpg';
+      case 'turkiyegazetesi':
+        return 'assets/logos/turkiyegazetesi.jpg';
+      case 'aksamhaberleri':
+        return 'assets/logos/aksamhaberleri.jpg';
+      case 'sabah':
+        return 'assets/logos/sabah.jpg';
       default:
-        return 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&q=80';
+        return 'assets/logos/trt.jpg';
     }
   }
 }
