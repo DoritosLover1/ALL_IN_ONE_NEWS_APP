@@ -7,24 +7,38 @@ class ShareService {
     UnifiedNewsItem item, {
     BuildContext? context,
   }) async {
-    final title = item.title;
-    final url = item.link;
-    final source = item.sourceTitle;
-    final shareText = '$title\n\nKaynak: $source\n$url';
+    final title = item.title.trim();
+    final url = item.link.trim();
+    final source = item.sourceTitle.trim();
+
+    final String shareText;
+    if (url.isNotEmpty && !title.contains(url)) {
+      shareText = '$title\n\nKaynak: $source\n$url';
+    } else {
+      shareText = title.isNotEmpty ? title : url;
+    }
 
     Rect? sharePositionOrigin;
     if (context != null && context.mounted) {
-      final box = context.findRenderObject() as RenderBox?;
-      if (box != null && box.hasSize) {
-        sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
-      }
+      try {
+        final box = context.findRenderObject() as RenderBox?;
+        if (box != null && box.hasSize && box.size.width > 0 && box.size.height > 0) {
+          final pos = box.localToGlobal(Offset.zero);
+          sharePositionOrigin = Rect.fromLTWH(
+            pos.dx,
+            pos.dy,
+            box.size.width,
+            box.size.height,
+          );
+        }
+      } catch (_) {}
     }
 
     try {
       await SharePlus.instance.share(
         ShareParams(
           text: shareText,
-          subject: title,
+          subject: title.isNotEmpty ? title : null,
           sharePositionOrigin: sharePositionOrigin,
         ),
       );
@@ -32,9 +46,8 @@ class ShareService {
       try {
         await SharePlus.instance.share(
           ShareParams(
-            uri: Uri.parse(url),
-            subject: title,
-            sharePositionOrigin: sharePositionOrigin,
+            text: shareText,
+            subject: title.isNotEmpty ? title : null,
           ),
         );
       } catch (_) {}
