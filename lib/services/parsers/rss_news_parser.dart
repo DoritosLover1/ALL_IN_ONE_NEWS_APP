@@ -153,35 +153,51 @@ class RssNewsParser {
     String? description,
     String? content,
   ) {
+    // 1. <image> child tag (CNN Türk tarzı — plain text URL)
+    for (final child in element.childElements) {
+      if (child.name.local.toLowerCase() == 'image') {
+        final u = child.innerText.trim();
+        if (_looksLikeImage(u)) return u;
+      }
+    }
+
+    // 2. enclosure / media:content / media:thumbnail — attribute'lardan url al
     for (final child in element.descendantElements) {
       final local = child.name.local.toLowerCase();
       final qualified = child.name.qualified.toLowerCase();
 
-      for (final attr in child.attributes) {
-        final attrVal = attr.value.trim();
-        if (_isValidUrl(attrVal) &&
-            (attr.name.local.toLowerCase() == 'url' ||
-                attr.name.local.toLowerCase() == 'src' ||
-                attr.name.local.toLowerCase() == 'href')) {
-          return attrVal;
-        }
+      final isMediaTag = local == 'enclosure' ||
+          local == 'thumbnail' ||
+          qualified.contains('media:content') ||
+          qualified.contains('media:thumbnail');
+
+      if (!isMediaTag) continue;
+
+      final urlAttr = child.getAttribute('url') ?? '';
+      final typeAttr = child.getAttribute('type') ?? '';
+      final mediumAttr = child.getAttribute('medium') ?? '';
+
+      // type="image/..." veya medium="image" → güvenle al
+      if (typeAttr.startsWith('image') || mediumAttr == 'image') {
+        if (_isValidUrl(urlAttr)) return urlAttr;
       }
 
-      if (local == 'image' ||
-          local == 'thumbnail' ||
-          local == 'content' ||
-          local == 'enclosure' ||
-          local.contains('resim') ||
-          local.contains('foto') ||
-          local.contains('gorsel') ||
-          qualified.contains('media') ||
-          qualified.contains('thumbnail') ||
-          qualified.contains('content')) {
-        final textUrl = child.innerText.trim();
-        if (_isValidUrl(textUrl)) return textUrl;
+      // type yoksa URL'nin kendisi görsel dosyasına işaret ediyor mu?
+      if (_looksLikeImage(urlAttr)) return urlAttr;
+    }
+
+    // 3. Diğer elementlerin src/href attribute'larına bak
+    for (final child in element.descendantElements) {
+      for (final attr in child.attributes) {
+        final attrName = attr.name.local.toLowerCase();
+        if (attrName == 'src' || attrName == 'href') {
+          final u = attr.value.trim();
+          if (_looksLikeImage(u)) return u;
+        }
       }
     }
 
+    // 4. description / content HTML'inden <img src> çek
     final imgFromDesc = BaseNewsParser.extractImageFromHtml(description);
     if (_isValidUrl(imgFromDesc)) return imgFromDesc;
 
@@ -190,6 +206,49 @@ class RssNewsParser {
 
     return null;
   }
+
+  /// URL'nin içeriğini parse etmeden sadece yapısından görsel olduğuna karar verir.
+  /// Proxy URL'leri (?u=...jpeg) ve bilinen CDN host'larını da kabul eder.
+  static bool _looksLikeImage(String? url) {
+    if (!_isValidUrl(url)) return false;
+    final lower = url!.toLowerCase();
+
+    // Uzantı (query string dahil aranır — ?u=...jpeg gibi proxy URL'leri yakalar)
+    if (lower.contains('.jpg') ||
+        lower.contains('.jpeg') ||
+        lower.contains('.png') ||
+        lower.contains('.webp') ||
+        lower.contains('.gif') ||
+        lower.contains('.avif')) {
+      return true;
+    }
+
+    // Bilinen görsel path segmentleri
+    final path = Uri.tryParse(url)?.path.toLowerCase() ?? '';
+    if (path.contains('/image') ||
+        path.contains('/img') ||
+        path.contains('/photo') ||
+        path.contains('/resim') ||
+        path.contains('/foto')) {
+      return true;
+    }
+
+    // Bilinen görsel CDN host'ları
+    final host = Uri.tryParse(url)?.host.toLowerCase() ?? '';
+    return host.contains('im.haberturk') ||
+        host.contains('image.cnnturk') ||
+        host.contains('trthaberstatic') ||
+        host.contains('iaahbr.tmgrup') ||
+        host.contains('img.piri.net') ||
+        host.contains('cdn.sabah') ||
+        host.contains('cdn.takvim') ||
+        host.contains('medya.sozcu') ||
+        host.contains('i.sabah') ||
+        host.contains('haberglobal') ||
+        host.contains('turkiyegazetesi') ||
+        host.contains('cdn.aksamhaberleri');
+  }
+
 
   static bool _isValidUrl(String? url) {
     if (url == null || url.isEmpty) return false;
