@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
 import 'package:flutter_medic/services/share_service.dart';
+import 'package:flutter_medic/widgets/app_news_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -312,17 +312,14 @@ class _NewsDetailModalState extends State<NewsDetailModal> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (item.imageUrl != null && item.imageUrl!.isNotEmpty)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: CachedNetworkImage(
-                imageUrl: item.imageUrl!,
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
-                errorWidget: (context, url, error) => const SizedBox.shrink(),
-              ),
-            ),
+          AppNewsImage(
+            imageUrl: item.imageUrl,
+            sourceId: item.sourceId,
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+            borderRadius: BorderRadius.circular(14),
+          ),
           const SizedBox(height: 16),
           Text(
             item.title,

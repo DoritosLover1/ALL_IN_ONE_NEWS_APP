@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medic/constants/universaltheme.dart';
 import 'package:flutter_medic/models/unified_news_item.dart';
+import 'package:flutter_medic/widgets/app_news_image.dart';
 
 class NewsCardItem extends StatelessWidget {
   final UnifiedNewsItem item;
@@ -20,9 +20,6 @@ class NewsCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final imageUrl =
-        item.imageUrl ??
-        'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&q=80';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
@@ -128,27 +125,13 @@ class NewsCardItem extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
 
-                      ClipRRect(
+                      AppNewsImage(
+                        imageUrl: item.imageUrl,
+                        sourceId: item.sourceId,
+                        width: 78,
+                        height: 78,
+                        fit: BoxFit.cover,
                         borderRadius: BorderRadius.circular(14),
-                        child: Container(
-                          width: 78,
-                          height: 78,
-                          color: const Color(0xFFF1F5F9),
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) =>
-                                Container(color: const Color(0xFFF1F5F9)),
-                            errorWidget: (context, url, error) => Container(
-                              color: const Color(0xFFE2E8F0),
-                              child: const Icon(
-                                Icons.image_outlined,
-                                color: Color(0xFF94A3B8),
-                                size: 28,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -176,33 +159,45 @@ class NewsCardItem extends StatelessWidget {
                       ),
                       const Spacer(),
 
-                      InkWell(
-                        onTap: onBookmarkTap,
-                        borderRadius: BorderRadius.circular(8),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Icon(
-                            item.isFavorite
-                                ? Icons.bookmark_rounded
-                                : Icons.bookmark_border_rounded,
-                            color: item.isFavorite
-                                ? theme.colorScheme.primary
-                                : const Color(0xFF94A3B8),
-                            size: 20,
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: onBookmarkTap,
+                          borderRadius: BorderRadius.circular(10),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 6,
+                            ),
+                            child: Icon(
+                              item.isFavorite
+                                  ? Icons.bookmark_rounded
+                                  : Icons.bookmark_border_rounded,
+                              color: item.isFavorite
+                                  ? theme.colorScheme.primary
+                                  : const Color(0xFF94A3B8),
+                              size: 21,
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 6),
+                      const SizedBox(width: 2),
 
-                      InkWell(
-                        onTap: onShareTap,
-                        borderRadius: BorderRadius.circular(8),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: const Icon(
-                            Icons.share_outlined,
-                            color: Color(0xFF94A3B8),
-                            size: 19,
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: onShareTap,
+                          borderRadius: BorderRadius.circular(10),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 6,
+                            ),
+                            child: Icon(
+                              Icons.share_outlined,
+                              color: Color(0xFF94A3B8),
+                              size: 20,
+                            ),
                           ),
                         ),
                       ),
