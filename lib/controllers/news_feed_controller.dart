@@ -39,6 +39,21 @@ class NewsFeedController extends ChangeNotifier {
     loadInitialData();
   }
 
+  /// Splash ekranı tarafından önceden yüklenmiş veriyle controller oluşturur.
+  /// Bu sayede Homepage oluşturulduğunda veriler zaten hazırdır.
+  NewsFeedController.preloaded({
+    required List<UnifiedNewsItem> feedItems,
+    required List<UnifiedNewsItem> savedItems,
+    required Set<String> selectedSourceIds,
+  }) {
+    _feedItems = feedItems;
+    _savedItems = savedItems;
+    _selectedSourceIds = selectedSourceIds;
+    _isLoading = false;
+    // Arka planda yenilemeyi başlat ama UI'ı engelleme
+    Future.microtask(refreshFeed);
+  }
+
   Future<void> loadInitialData() async {
     _isLoading = true;
     notifyListeners();

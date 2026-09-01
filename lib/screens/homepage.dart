@@ -6,15 +6,26 @@ import 'package:flutter_medic/screens/saved_news_screen.dart';
 import 'package:flutter_medic/widgets/home/custom_bottom_navbar.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  /// Splash ekranından önceden hazırlanmış controller.
+  /// Verilmezse Homepage kendi controller'ını oluşturur.
+  final NewsFeedController? preloadedController;
+
+  const Homepage({super.key, this.preloadedController});
 
   @override
   State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
-  final NewsFeedController _feedController = NewsFeedController();
+  late final NewsFeedController _feedController;
   int _currentTabIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Splash'tan gelen hazır controller varsa kullan, yoksa sıfırdan başlat
+    _feedController = widget.preloadedController ?? NewsFeedController();
+  }
 
   @override
   void dispose() {
