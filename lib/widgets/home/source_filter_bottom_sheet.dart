@@ -185,24 +185,34 @@ class _SourceFilterBottomSheetState extends State<SourceFilterBottomSheet> {
                     ),
                     child: Row(
                       children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: source.badgeColor,
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Center(
-                            child: Text(
-                              source.badgeText,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 12,
+                        source.logoPath != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(11),
+                                child: Image.asset(
+                                  source.logoPath!,
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: source.badgeColor,
+                                  borderRadius: BorderRadius.circular(11),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    source.badgeText,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                         const SizedBox(width: 12),
 
                         Expanded(

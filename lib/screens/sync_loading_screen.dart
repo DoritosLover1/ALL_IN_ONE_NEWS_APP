@@ -211,12 +211,17 @@ class _SyncLoadingScreenState extends State<SyncLoadingScreen>
                   children: [
                     Icon(Icons.shield_outlined, size: 16, color: primaryColor),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Tüm veriler yerel SQLite veritabanınızda saklanır',
-                      style: TextStyle(
-                        color: Color(0xFF64748B),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Text(
+                        'Tüm veriler yerel SQLite veritabanınızda saklanır',
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFF64748B),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],

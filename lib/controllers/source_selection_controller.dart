@@ -12,20 +12,39 @@ class SourceSelectionController extends ChangeNotifier {
     'cnnturk',
   };
   String _searchQuery = '';
+  int _displayLimit = 20;
 
   List<SelectableItem> get allSources => _allSources;
   Set<String> get selectedIds => _selectedIds;
   int get selectedCount => _selectedIds.length;
   bool get hasSelection => _selectedIds.isNotEmpty;
   String get searchQuery => _searchQuery;
+  
+  bool get hasMoreToLoad {
+    final totalFiltered = _searchQuery.isEmpty 
+        ? _allSources.length 
+        : _allSources.where((item) => 
+            item.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+            item.subtitle.toLowerCase().contains(_searchQuery.toLowerCase())).length;
+    return _displayLimit < totalFiltered;
+  }
 
   List<SelectableItem> get filteredSources {
-    if (_searchQuery.isEmpty) return _allSources;
-    final query = _searchQuery.toLowerCase();
-    return _allSources.where((item) {
-      return item.title.toLowerCase().contains(query) ||
-          item.subtitle.toLowerCase().contains(query);
-    }).toList();
+    List<SelectableItem> results;
+    if (_searchQuery.isEmpty) {
+      results = _allSources;
+    } else {
+      final query = _searchQuery.toLowerCase();
+      results = _allSources.where((item) {
+        return item.title.toLowerCase().contains(query) ||
+            item.subtitle.toLowerCase().contains(query);
+      }).toList();
+    }
+    
+    if (results.length > _displayLimit) {
+      return results.sublist(0, _displayLimit);
+    }
+    return results;
   }
 
   bool isSelected(String id) => _selectedIds.contains(id);
@@ -51,11 +70,18 @@ class SourceSelectionController extends ChangeNotifier {
 
   void setSearchQuery(String query) {
     _searchQuery = query;
+    _displayLimit = 20;
     notifyListeners();
   }
 
   void clearSearch() {
     _searchQuery = '';
+    _displayLimit = 20;
+    notifyListeners();
+  }
+  
+  void loadMore() {
+    _displayLimit += 20;
     notifyListeners();
   }
 }

@@ -173,15 +173,23 @@ class _FirstpageState extends State<Firstpage> {
                   ),
                 ),
                 Expanded(
-                  child: NotificationListener<OverscrollIndicatorNotification>(
-                    onNotification: (overscroll) {
-                      overscroll.disallowIndicator();
-                      return true;
+                  child: NotificationListener<Notification>(
+                    onNotification: (Notification scrollInfo) {
+                      if (scrollInfo is OverscrollIndicatorNotification) {
+                        scrollInfo.disallowIndicator();
+                      } else if (scrollInfo is ScrollNotification) {
+                        if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 100) {
+                          if (_controller.hasMoreToLoad) {
+                            _controller.loadMore();
+                          }
+                        }
+                      }
+                      return false;
                     },
                     child: GridView.builder(
                       physics: const ClampingScrollPhysics(),
                       padding: const EdgeInsets.fromLTRB(20, 6, 20, 110),
-                      itemCount: filteredSources.length,
+                      itemCount: filteredSources.length + (_controller.hasMoreToLoad ? 2 : 0),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -190,6 +198,14 @@ class _FirstpageState extends State<Firstpage> {
                             childAspectRatio: 1.85,
                           ),
                       itemBuilder: (context, index) {
+                        if (index >= filteredSources.length) {
+                          return const Center(
+                            child: SizedBox(
+                              width: 20, height: 20, 
+                              child: CircularProgressIndicator(strokeWidth: 2)
+                            )
+                          );
+                        }
                         final item = filteredSources[index];
                         return SelectableCard(
                           item: item,

@@ -10,12 +10,12 @@ import 'package:flutter_medic/services/news_sync_service.dart';
 import 'package:flutter_medic/services/user_preferences_service.dart';
 
 const _panelAssets = [
-  'assets/splash/panel_haberturk.jpg',
-  'assets/splash/panel_cnnturk.jpg',
-  'assets/splash/panel_trt.jpg',
-  'assets/splash/panel_ntv.jpg',
-  'assets/splash/panel_ahaber.jpg',
-  'assets/splash/panel_sozcu.jpg',
+  'assets/logos/haberturk.png',
+  'assets/logos/cnnturk.png',
+  'assets/logos/trt.png',
+  'assets/logos/ntv.jpg',
+  'assets/logos/ahaber.jpeg',
+  'assets/logos/sozcu.png',
 ];
 
 class SplashScreen extends StatefulWidget {

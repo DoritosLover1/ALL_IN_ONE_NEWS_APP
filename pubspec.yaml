@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.13.1
+  sdk: ^3.9.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,31 +33,31 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  google_fonts: ^8.2.1
-  shared_preferences: ^2.5.5
-  flutter_riverpod: ^2.6.1
-  provider: ^6.1.5+1
-  floor: ^1.5.0
-  sqflite: ^2.4.3
-  http: ^1.6.0
-  xml: ^7.0.1
-  intl: ^0.20.3
-  webview_flutter: ^4.14.1
-  url_launcher: ^6.3.2
-  youtube_player_iframe: ^6.0.2
-  share_plus: ^13.3.0
-  cached_network_image: ^3.4.1
+  cupertino_icons: any
+  google_fonts: any
+  shared_preferences: any
+  flutter_riverpod: any
+  provider: any
+  floor: any
+  sqflite: any
+  http: any
+  xml: any
+  intl: any
+  webview_flutter: any
+  url_launcher: any
+  youtube_player_iframe: any
+  share_plus: any
+  cached_network_image: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^6.0.0
-  floor_generator: ^1.5.0
-  build_runner: ^2.4.13
-  sqflite_common_ffi: ^2.4.2+1
-  webview_flutter_platform_interface: ^2.15.1
+  flutter_lints: any
+  floor_generator: any
+  build_runner: any
+  sqflite_common_ffi: any
+  webview_flutter_platform_interface: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -73,7 +73,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/splash/
     - assets/logos/
 
   # An image asset can refer to one or more resolution-specific "variants", see

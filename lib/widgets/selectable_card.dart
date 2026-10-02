@@ -51,16 +51,24 @@ class SelectableCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: item.badgeColor,
                   shape: BoxShape.circle,
+                  image: item.logoPath != null
+                      ? DecorationImage(
+                          image: AssetImage(item.logoPath!),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  item.badgeText,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                ),
+                child: item.logoPath == null
+                    ? Text(
+                        item.badgeText,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      )
+                    : null,
               ),
               const SizedBox(width: 8),
               Expanded(

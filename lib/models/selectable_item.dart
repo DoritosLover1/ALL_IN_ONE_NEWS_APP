@@ -6,6 +6,7 @@ class SelectableItem {
   final String subtitle;
   final String badgeText;
   final Color badgeColor;
+  final String? logoPath;
 
   const SelectableItem({
     required this.id,
@@ -13,5 +14,6 @@ class SelectableItem {
     required this.subtitle,
     required this.badgeText,
     required this.badgeColor,
+    this.logoPath,
   });
 }
