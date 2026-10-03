@@ -30,35 +30,54 @@ class SavedNewsScreen extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: const Color(0xFFF8FAFC),
-          appBar: AppBar(
-            backgroundColor: const Color(0xFFF8FAFC),
-            surfaceTintColor: Colors.transparent,
-            elevation: 0,
-            title: Column(
+          body: SafeArea(
+            bottom: false,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Kaydedilenler',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.black,
-                    fontSize: 22,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 7,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.primary,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            'SANA ÖZEL ARŞİV',
+                            style: theme.textTheme.displaySmall?.copyWith(
+                              color: theme.colorScheme.primary,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.2,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Kaydedilenler',
+                        style: theme.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 28,
+                          color: AppColors.black,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Ömür boyu saklanan haberleriniz',
-                  style: TextStyle(
-                    color: AppColors.gray,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          body: savedItems.isEmpty
-              ? Center(
+                Expanded(
+                  child: savedItems.isEmpty
+                      ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(32),
                     child: Column(
@@ -118,6 +137,10 @@ class SavedNewsScreen extends StatelessWidget {
                     );
                   },
                 ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

@@ -73,6 +73,7 @@ class BreakingNewsCard extends StatelessWidget {
                   Positioned(
                     top: 14,
                     left: 14,
+                    right: 14,
                     child: Row(
                       children: [
                         Container(
@@ -95,21 +96,25 @@ class BreakingNewsCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.6),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            item.sourceTitle,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 10.5,
+                        Flexible(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.6),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              item.sourceTitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10.5,
+                              ),
                             ),
                           ),
                         ),
@@ -175,23 +180,33 @@ class BreakingNewsCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    item.sourceTitle,
-                    style: theme.textTheme.displayMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.black,
-                      fontSize: 13,
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            item.sourceTitle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.displayMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.black,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          '•  ${item.timeAgo}',
+                          style: theme.textTheme.displaySmall?.copyWith(
+                            color: AppColors.gray,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 6),
-                  Text(
-                    '•  ${item.timeAgo}',
-                    style: theme.textTheme.displaySmall?.copyWith(
-                      color: AppColors.gray,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const Spacer(),
 
                   IconButton(
                     icon: Icon(

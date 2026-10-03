@@ -19,10 +19,11 @@ class CategoryChipsBar extends StatelessWidget {
     final primaryColor = theme.colorScheme.primary;
 
     return SizedBox(
-      height: 38,
+      height: 52, // Artırıldı ki gölgeler kesilmesin
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        clipBehavior: Clip.none, // Gölgelerin listview dışına taşabilmesi için
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
         itemCount: categories.length,
         separatorBuilder: (context, index) => const SizedBox(width: 8),
         itemBuilder: (context, index) {

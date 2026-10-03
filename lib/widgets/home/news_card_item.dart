@@ -68,12 +68,16 @@ class NewsCardItem extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 7),
-                      Text(
-                        item.sourceTitle,
-                        style: theme.textTheme.displayMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.black,
-                          fontSize: 12.5,
+                      Flexible(
+                        child: Text(
+                          item.sourceTitle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.displayMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.black,
+                            fontSize: 12.5,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 5),

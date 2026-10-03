@@ -201,6 +201,7 @@ class NewsSyncService {
     required String sourceTitle,
     required String url,
   }) async {
+    await DatabaseService.instance.openCustomRssDatabase(sourceId);
     try {
       final response = await http
           .get(Uri.parse(url), headers: _customHeaders)
@@ -267,6 +268,7 @@ class NewsSyncService {
   }
 
   Future<void> _seedRssSourceIfEmpty(String sourceId) async {
+    await DatabaseService.instance.openCustomRssDatabase(sourceId);
     final dao = DatabaseService.instance.getRssDao(sourceId);
     final count = await dao.getItemCount();
     if ((count ?? 0) > 0) return;

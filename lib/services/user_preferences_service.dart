@@ -20,7 +20,16 @@ class UserPreferencesService {
     if (list == null || list.isEmpty) {
       return Set.from(defaultSources);
     }
-    return list.toSet();
+    
+    final exp = RegExp(r'^local_\d+_');
+    final normalized = list.map((id) => exp.hasMatch(id) ? id.replaceFirst(exp, '') : id).toSet();
+    
+    // Eğer legacy prefix temizlendiyse, yenisini kaydet
+    if (normalized.length == list.length && list.any((id) => exp.hasMatch(id))) {
+      saveSelectedSources(normalized);
+    }
+    
+    return normalized;
   }
 
   static Future<void> saveSelectedSources(Set<String> sourceIds) async {

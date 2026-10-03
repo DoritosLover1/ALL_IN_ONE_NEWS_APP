@@ -45,18 +45,26 @@ class UnifiedNewsItem {
     int? createdAt,
   }) : createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch;
 
+  /// Strips the legacy `local_XX_` prefix from a sourceId that was persisted
+  /// before the naming scheme was cleaned up (e.g. "local_38_deniz_postasi" → "deniz_postasi").
+  static String _normalizeSourceId(String id) {
+    final exp = RegExp(r'^local_\d+_');
+    return exp.hasMatch(id) ? id.replaceFirst(exp, '') : id;
+  }
+
   factory UnifiedNewsItem.fromRss(RssItem item, {bool isBreaking = false}) {
-    final meta = _getSourceMeta(item.sourceId);
+    final normalizedSourceId = _normalizeSourceId(item.sourceId);
+    final meta = _getSourceMeta(normalizedSourceId);
     final validImage = (item.imageUrl != null && item.imageUrl!.isNotEmpty)
         ? item.imageUrl
         : BaseNewsParser.getFallbackImageForSource(
-            item.sourceId,
+            normalizedSourceId,
             item.category,
           );
 
     return UnifiedNewsItem(
       sourceId: item.sourceId,
-      sourceTitle: item.sourceTitle.isNotEmpty ? item.sourceTitle : meta.title,
+      sourceTitle: meta.title,
       sourceBadgeText: meta.badgeText,
       sourceBadgeColor: meta.badgeColor,
       title: item.title,
@@ -149,9 +157,13 @@ class UnifiedNewsItem {
   static _SourceMeta _getSourceMeta(String sourceId) {
     final found = findNewsSourceById(sourceId);
     if (found != null) {
+      String badge = found.badgeText;
+      if (RegExp(r'^\d+$').hasMatch(badge)) {
+        badge = _generateAbbreviation(found.title);
+      }
       return _SourceMeta(
         title: found.title,
-        badgeText: found.badgeText,
+        badgeText: badge,
         badgeColor: found.badgeColor,
       );
     }
@@ -162,6 +174,23 @@ class UnifiedNewsItem {
           : sourceId.toUpperCase(),
       badgeColor: const Color(0xFF1D4ED8),
     );
+  }
+
+  static String _generateAbbreviation(String title) {
+    final parts = title.trim().split(RegExp(r'\s+'));
+    if (parts.length >= 2) {
+      String abbr = '';
+      for (var i = 0; i < parts.length && i < 3; i++) {
+        final p = parts[i];
+        if (p.isNotEmpty) {
+          abbr += p[0].toUpperCase();
+        }
+      }
+      return abbr;
+    } else if (title.length >= 3) {
+      return title.substring(0, 3).toUpperCase();
+    }
+    return title.toUpperCase();
   }
 
   static String _calculateTimeAgo(int timestamp) {

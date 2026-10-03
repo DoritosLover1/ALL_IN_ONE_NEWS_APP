@@ -142,13 +142,11 @@ class DatabaseService {
 
     for (final sourceId in activeSourceIds) {
       if (sourceId.toLowerCase() == 'ntv') continue;
-      final db = _rssDatabases[sourceId.toLowerCase()];
-      if (db != null) {
-        final rssItems = await db.rssDao.findAllRssItems();
-        for (final item in rssItems) {
-          if (seenLinks.add(item.link)) {
-            combined.add(UnifiedNewsItem.fromRss(item));
-          }
+      final db = await openCustomRssDatabase(sourceId);
+      final rssItems = await db.rssDao.findAllRssItems();
+      for (final item in rssItems) {
+        if (seenLinks.add(item.link)) {
+          combined.add(UnifiedNewsItem.fromRss(item));
         }
       }
     }

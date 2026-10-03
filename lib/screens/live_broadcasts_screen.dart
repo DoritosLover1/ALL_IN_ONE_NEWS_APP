@@ -108,7 +108,9 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
     super.dispose();
   }
 
-  bool get _isPlaying => _playerState == PlayerState.playing;
+  bool get _isPlaying =>
+      _playerState == PlayerState.playing ||
+      _playerState == PlayerState.buffering;
 
   void _togglePlayPause(SourceChannel channel) {
     if (_activeChannel.id != channel.id) {
@@ -159,88 +161,85 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF8FAFC),
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        toolbarHeight: 85,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 4.0, top: 12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  AnimatedBuilder(
-                    animation: _pulseController,
-                    builder: (context, child) {
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Transform.scale(
-                            scale: _pulseAnimation.value * 1.5,
-                            child: Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: AppColors.darkRed.withValues(
-                                  alpha: _waveAnimation.value,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                          Transform.scale(
-                            scale: _pulseAnimation.value,
-                            child: Container(
-                              width: 6,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                color: AppColors.darkRed,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.darkRed.withValues(alpha: 0.6),
-                                    blurRadius: 4,
-                                    spreadRadius: 1,
+      body: SafeArea(
+        bottom: false,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        AnimatedBuilder(
+                          animation: _pulseController,
+                          builder: (context, child) {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Transform.scale(
+                                  scale: _pulseAnimation.value * 1.5,
+                                  child: Container(
+                                    width: 8,
+                                    height: 8,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.darkRed.withValues(
+                                        alpha: _waveAnimation.value,
+                                      ),
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                                Transform.scale(
+                                  scale: _pulseAnimation.value,
+                                  child: Container(
+                                    width: 6,
+                                    height: 6,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.darkRed,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.darkRed.withValues(alpha: 0.6),
+                                          blurRadius: 4,
+                                          spreadRadius: 1,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'SANA ÖZEL VİDEOLAR',
+                          style: theme.textTheme.displaySmall?.copyWith(
+                            color: AppColors.darkRed,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.2,
+                            fontSize: 11,
                           ),
-                        ],
-                      );
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'SANA ÖZEL VİDEOLAR',
-                    style: theme.textTheme.displaySmall?.copyWith(
-                      color: AppColors.darkRed,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 1.2,
-                      fontSize: 11,
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Text(
-                'Canlı Yayınlar',
-                style: theme.textTheme.headlineLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 28,
-                  color: AppColors.black,
-                  letterSpacing: -0.5,
+                    const SizedBox(height: 6),
+                    Text(
+                      'Canlı Yayınlar',
+                      style: theme.textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 28,
+                        color: AppColors.black,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      body: CustomScrollView(
-        slivers: [
+            ),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
@@ -304,6 +303,7 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
           ),
         ],
       ),
+      ),
     );
   }
 
@@ -354,12 +354,16 @@ class _LiveBroadcastsScreenState extends State<LiveBroadcastsScreen>
                       children: [
                         Row(
                           children: [
-                            Text(
-                              _activeChannel.name,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
+                            Flexible(
+                              child: Text(
+                                _activeChannel.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),

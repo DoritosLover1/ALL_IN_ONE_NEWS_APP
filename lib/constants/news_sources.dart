@@ -38,7 +38,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     badgeColor: Color(0xFF0F52BA),
     logoPath: 'assets/logos/trt.png',
     type: NewsSourceType.rss,
-    url: 'https://www.trthaber.com/gundem_articles.rss',
+    url: 'https://www.trthaber.com/manset_articles.rss',
   ),
   NewsSourceItem(
     id: 'ntv',
@@ -58,7 +58,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     badgeColor: Color(0xFFD6181F),
     logoPath: 'assets/logos/sozcu.png',
     type: NewsSourceType.rss,
-    url: 'https://www.sozcu.com.tr/feeds-haberler',
+    url: 'https://www.sozcu.com.tr/rss/tum-haberler.xml',
   ),
   NewsSourceItem(
     id: 'ahaber',
@@ -88,7 +88,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     badgeColor: Color(0xFF2C3E50),
     logoPath: 'assets/logos/haberglobal.png',
     type: NewsSourceType.rss,
-    url: 'https://haberglobal.com/rss',
+    url: 'https://haberglobal.com.tr/rss',
   ),
   NewsSourceItem(
     id: 'yenisafak',
@@ -197,7 +197,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     badgeText: 'KOC',
     badgeColor: Color(0xFFD35400),
     type: NewsSourceType.rss,
-    url: 'https://www.sabah.com.tr/rss/kocaeli.xml',
+    url: 'https://www.kocaelisabah.com/rss',
     logoPath: 'assets/logos/sabah.jpg',
   ),
   NewsSourceItem(
@@ -217,11 +217,11 @@ const List<NewsSourceItem> kAllNewsSources = [
     badgeText: 'DÜZ',
     badgeColor: Color(0xFFD35400),
     type: NewsSourceType.rss,
-    url: 'https://www.sabah.com.tr/rss/duzce.xml',
+    url: 'https://www.duzcesonhaber.com/rss-servisi',
     logoPath: 'assets/logos/sabah.jpg',
   ),
   NewsSourceItem(
-    id: 'local_01_i̇lkhaber',
+    id: 'i̇lkhaber',
     title: 'İlkhaber',
     subtitle: 'Adana',
     badgeText: '01',
@@ -231,7 +231,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/01_İlkhaber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_01_5_ocak_gazetesi',
+    id: '5_ocak_gazetesi',
     title: '5 Ocak Gazetesi',
     subtitle: 'Adana',
     badgeText: '01',
@@ -241,7 +241,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/01_5_Ocak_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_02_yeniyol_gazetesi',
+    id: 'yeniyol_gazetesi',
     title: 'Yeniyol Gazetesi',
     subtitle: 'Adıyaman',
     badgeText: '02',
@@ -251,7 +251,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/02_Yeniyol_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_03_afyon_haber',
+    id: 'afyon_haber',
     title: 'Afyon Haber',
     subtitle: 'Afyonkarahisar',
     badgeText: '03',
@@ -261,7 +261,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/03_Afyon_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_03_odak_gazetesi',
+    id: 'odak_gazetesi',
     title: 'Odak Gazetesi',
     subtitle: 'Afyonkarahisar',
     badgeText: '03',
@@ -271,7 +271,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/03_Odak_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_04_agri_memleket',
+    id: 'agri_memleket',
     title: 'Ağrı Memleket',
     subtitle: 'Ağrı',
     badgeText: '04',
@@ -281,7 +281,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/04_Ağrı_Memleket_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_04_narinkale_gazetesi',
+    id: 'narinkale_gazetesi',
     title: 'Narinkale Gazetesi',
     subtitle: 'Ağrı',
     badgeText: '04',
@@ -291,7 +291,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: null,
   ),
   NewsSourceItem(
-    id: 'local_06_sonsoz',
+    id: 'sonsoz',
     title: 'Sonsöz',
     subtitle: 'Ankara',
     badgeText: '06',
@@ -301,7 +301,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/06_Sonsöz_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_06_baskent_gazetesi',
+    id: 'baskent_gazetesi',
     title: 'Başkent Gazetesi',
     subtitle: 'Ankara',
     badgeText: '06',
@@ -311,7 +311,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/06_Başkent_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_07_akdeniz_gercek',
+    id: 'akdeniz_gercek',
     title: 'Akdeniz Gerçek',
     subtitle: 'Antalya',
     badgeText: '07',
@@ -321,7 +321,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/07_Akdeniz_Gerçek_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_07_antalya_ekspres',
+    id: 'antalya_ekspres',
     title: 'Antalya Ekspres',
     subtitle: 'Antalya',
     badgeText: '07',
@@ -331,7 +331,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/07_Antalya_Ekspres_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_07_antalya_korfez',
+    id: 'antalya_korfez',
     title: 'Antalya Körfez',
     subtitle: 'Antalya',
     badgeText: '07',
@@ -341,7 +341,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/07_Antalya_Körfez_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_08_gundem_artvin',
+    id: 'gundem_artvin',
     title: 'Gündem Artvin',
     subtitle: 'Artvin',
     badgeText: '08',
@@ -351,7 +351,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/08_Gündem_Artvin_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_08_7_mart_gazetesi',
+    id: '7_mart_gazetesi',
     title: '7 Mart Gazetesi',
     subtitle: 'Artvin',
     badgeText: '08',
@@ -361,7 +361,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/08_7_Mart_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_09_ses_gazetesi',
+    id: 'ses_gazetesi',
     title: 'Ses Gazetesi',
     subtitle: 'Aydın',
     badgeText: '09',
@@ -371,7 +371,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/09_Ses_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_09_hedef_gazetesi',
+    id: 'hedef_gazetesi',
     title: 'Hedef Gazetesi',
     subtitle: 'Aydın',
     badgeText: '09',
@@ -381,7 +381,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/09_Hedef_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_09_aydin_denge',
+    id: 'aydin_denge',
     title: 'Aydın Denge',
     subtitle: 'Aydın',
     badgeText: '09',
@@ -391,7 +391,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/09_Aydın_Denge_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_10_balikesir_birlik',
+    id: 'balikesir_birlik',
     title: 'Balıkesir Birlik',
     subtitle: 'Balıkesir',
     badgeText: '10',
@@ -401,7 +401,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/10_Balıkesir_Birlik_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_10_balikesir_politika',
+    id: 'balikesir_politika',
     title: 'Balıkesir Politika',
     subtitle: 'Balıkesir',
     badgeText: '10',
@@ -411,7 +411,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/10_Balıkesir_Politika_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_11_bilecik_haber',
+    id: 'bilecik_haber',
     title: 'Bilecik Haber',
     subtitle: 'Bilecik',
     badgeText: '11',
@@ -421,7 +421,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/11_Bilecik_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_11_yarin_gazetesi',
+    id: 'yarin_gazetesi',
     title: 'Yarın Gazetesi',
     subtitle: 'Bilecik',
     badgeText: '11',
@@ -431,7 +431,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/11_Yarın_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_11_bilecik11',
+    id: 'bilecik11',
     title: 'Bilecik11',
     subtitle: 'Bilecik',
     badgeText: '11',
@@ -441,7 +441,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/11_Bilecik11_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_12_bingol_kent_haber',
+    id: 'bingol_kent_haber',
     title: 'Bingöl Kent Haber',
     subtitle: 'Bingöl',
     badgeText: '12',
@@ -451,7 +451,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/12_Bingöl_Kent_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_12_bingol_online',
+    id: 'bingol_online',
     title: 'Bingöl Online',
     subtitle: 'Bingöl',
     badgeText: '12',
@@ -461,7 +461,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/12_Bingöl_Online_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_12_bingol_surmanset',
+    id: 'bingol_surmanset',
     title: 'Bingöl Sürmanşet',
     subtitle: 'Bingöl',
     badgeText: '12',
@@ -471,7 +471,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/12_Bingöl_Sürmanşet_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_13_bitlis_haber_13',
+    id: 'bitlis_haber_13',
     title: 'Bitlis Haber 13',
     subtitle: 'Bitlis',
     badgeText: '13',
@@ -481,7 +481,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/13_Bitlis_Haber_13_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_13_bitlis_dogru_haber',
+    id: 'bitlis_dogru_haber',
     title: 'Bitlis Doğru Haber',
     subtitle: 'Bitlis',
     badgeText: '13',
@@ -491,7 +491,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/13_Bitlis_Doğru_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_13_tatvan_sesi',
+    id: 'tatvan_sesi',
     title: 'Tatvan Sesi',
     subtitle: 'Bitlis',
     badgeText: '13',
@@ -501,7 +501,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/13_Tatvan_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_15_burdur_yenigun',
+    id: 'burdur_yenigun',
     title: 'Burdur Yenigün',
     subtitle: 'Burdur',
     badgeText: '15',
@@ -511,7 +511,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/15_Burdur_Yenigün_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_15_cagdas_burdur',
+    id: 'cagdas_burdur',
     title: 'Çağdaş Burdur',
     subtitle: 'Burdur',
     badgeText: '15',
@@ -521,7 +521,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/15_Çağdaş_Burdur_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_16_olay_gazetesi',
+    id: 'olay_gazetesi',
     title: 'Olay Gazetesi',
     subtitle: 'Bursa',
     badgeText: '16',
@@ -531,7 +531,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/16_Olay_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_16_bursa_hakimiyet',
+    id: 'bursa_hakimiyet',
     title: 'Bursa Hakimiyet',
     subtitle: 'Bursa',
     badgeText: '16',
@@ -541,7 +541,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/16_Bursa_Hakimiyet_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_16_bursa_haber',
+    id: 'bursa_haber',
     title: 'Bursa Haber',
     subtitle: 'Bursa',
     badgeText: '16',
@@ -551,7 +551,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/16_Bursa_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_17_canakkale_olay',
+    id: 'canakkale_olay',
     title: 'Çanakkale Olay',
     subtitle: 'Çanakkale',
     badgeText: '17',
@@ -561,7 +561,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/17_Çanakkale_Olay_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_17_bogaz_gazetesi',
+    id: 'bogaz_gazetesi',
     title: 'Boğaz Gazetesi',
     subtitle: 'Çanakkale',
     badgeText: '17',
@@ -571,7 +571,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/17_Boğaz_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_17_kalenin_sesi',
+    id: 'kalenin_sesi',
     title: 'Kalenin Sesi',
     subtitle: 'Çanakkale',
     badgeText: '17',
@@ -581,7 +581,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/17_Kalenin_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_18_cankiri_gazete',
+    id: 'cankiri_gazete',
     title: 'Çankırı Gazete',
     subtitle: 'Çankırı',
     badgeText: '18',
@@ -591,7 +591,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/18_Çankırı_Gazete_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_18_karatekin_gazetesi',
+    id: 'karatekin_gazetesi',
     title: 'Karatekin Gazetesi',
     subtitle: 'Çankırı',
     badgeText: '18',
@@ -601,7 +601,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/18_Karatekin_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_19_corum_haber',
+    id: 'corum_haber',
     title: 'Çorum Haber',
     subtitle: 'Çorum',
     badgeText: '19',
@@ -611,7 +611,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/19_Çorum_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_19_corum_hakimiyet',
+    id: 'corum_hakimiyet',
     title: 'Çorum Hakimiyet',
     subtitle: 'Çorum',
     badgeText: '19',
@@ -621,7 +621,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: null,
   ),
   NewsSourceItem(
-    id: 'local_19_kesin_karar',
+    id: 'kesin_karar',
     title: 'Kesin Karar',
     subtitle: 'Çorum',
     badgeText: '19',
@@ -631,7 +631,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/19_Kesin_Karar_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_20_denizli_gazetesi',
+    id: 'denizli_gazetesi',
     title: 'Denizli Gazetesi',
     subtitle: 'Denizli',
     badgeText: '20',
@@ -641,7 +641,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/20_Denizli_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_20_denizli_haber',
+    id: 'denizli_haber',
     title: 'Denizli Haber',
     subtitle: 'Denizli',
     badgeText: '20',
@@ -651,7 +651,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/20_Denizli_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_21_guneydogu_ekspres',
+    id: 'guneydogu_ekspres',
     title: 'Güneydoğu Ekspres',
     subtitle: 'Diyarbakır',
     badgeText: '21',
@@ -661,7 +661,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/21_Güneydoğu_Ekspres_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_21_diyarbakir_yenigun',
+    id: 'diyarbakir_yenigun',
     title: 'Diyarbakır Yenigün',
     subtitle: 'Diyarbakır',
     badgeText: '21',
@@ -671,7 +671,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/21_Diyarbakır_Yenigün_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_21_diyarbakir_soz',
+    id: 'diyarbakir_soz',
     title: 'Diyarbakır Söz',
     subtitle: 'Diyarbakır',
     badgeText: '21',
@@ -681,7 +681,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/21_Diyarbakır_Söz_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_22_hudut_gazetesi',
+    id: 'hudut_gazetesi',
     title: 'Hudut Gazetesi',
     subtitle: 'Edirne',
     badgeText: '22',
@@ -691,7 +691,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/22_Hudut_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_22_vatandas_gazetesi',
+    id: 'vatandas_gazetesi',
     title: 'Vatandaş Gazetesi',
     subtitle: 'Edirne',
     badgeText: '22',
@@ -701,7 +701,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: null,
   ),
   NewsSourceItem(
-    id: 'local_22_edirne_gazetesi',
+    id: 'edirne_gazetesi',
     title: 'Edirne Gazetesi',
     subtitle: 'Edirne',
     badgeText: '22',
@@ -711,7 +711,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/22_Edirne_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_24_gundem24',
+    id: 'gundem24',
     title: 'Gündem24',
     subtitle: 'Erzincan',
     badgeText: '24',
@@ -721,7 +721,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/24_Gündem24_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_24_erzincan_net',
+    id: 'erzincan_net',
     title: 'Erzincan Net',
     subtitle: 'Erzincan',
     badgeText: '24',
@@ -731,7 +731,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/24_Erzincan_Net_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_24_dogu_gazetesi',
+    id: 'dogu_gazetesi',
     title: 'Doğu Gazetesi',
     subtitle: 'Erzincan',
     badgeText: '24',
@@ -741,7 +741,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/24_Doğu_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_25_pusula_gazetesi',
+    id: 'pusula_gazetesi',
     title: 'Pusula Gazetesi',
     subtitle: 'Erzurum',
     badgeText: '25',
@@ -751,7 +751,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/25_Pusula_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_25_erzurum_gunebakis',
+    id: 'erzurum_gunebakis',
     title: 'Erzurum Günebakış',
     subtitle: 'Erzurum',
     badgeText: '25',
@@ -761,7 +761,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/25_Erzurum_Günebakış_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_26_2_eylul',
+    id: '2_eylul',
     title: '2 Eylül',
     subtitle: 'Eskişehir',
     badgeText: '26',
@@ -771,7 +771,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/26_2_Eylül_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_26_anadolu_gazetesi',
+    id: 'anadolu_gazetesi',
     title: 'Anadolu Gazetesi',
     subtitle: 'Eskişehir',
     badgeText: '26',
@@ -781,7 +781,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/26_Anadolu_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_29_gumushane.gen.tr',
+    id: 'gumushane.gen.tr',
     title: 'Gümüşhane.gen.tr',
     subtitle: 'Gümüşhane',
     badgeText: '29',
@@ -791,7 +791,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/29_Gümüşhane.gen.tr_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_30_hakkâri_i̇l_sesi',
+    id: 'hakkâri_i̇l_sesi',
     title: 'Hakkâri İl Sesi',
     subtitle: 'Hakkâri',
     badgeText: '30',
@@ -801,7 +801,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/30_Hakkâri_İl_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_30_hakkari_objektif_haber',
+    id: 'hakkari_objektif_haber',
     title: 'Hakkari Objektif Haber',
     subtitle: 'Hakkâri',
     badgeText: '30',
@@ -811,7 +811,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/30_Hakkari_Objektif_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_30_yuksekova_haber',
+    id: 'yuksekova_haber',
     title: 'Yüksekova Haber',
     subtitle: 'Hakkâri',
     badgeText: '30',
@@ -821,7 +821,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/30_Yüksekova_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_31_hatay_soz',
+    id: 'hatay_soz',
     title: 'Hatay Söz',
     subtitle: 'Hatay',
     badgeText: '31',
@@ -831,7 +831,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/31_Hatay_Söz_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_31_antakya_gazetesi',
+    id: 'antakya_gazetesi',
     title: 'Antakya Gazetesi',
     subtitle: 'Hatay',
     badgeText: '31',
@@ -841,7 +841,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/31_Antakya_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_31_asi_gazetesi',
+    id: 'asi_gazetesi',
     title: 'Asi Gazetesi',
     subtitle: 'Hatay',
     badgeText: '31',
@@ -851,7 +851,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/31_Asi_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_32_bomba_32',
+    id: 'bomba_32',
     title: 'Bomba 32',
     subtitle: 'Isparta',
     badgeText: '32',
@@ -861,7 +861,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/32_Bomba_32_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_32_demokrat_gazetesi',
+    id: 'demokrat_gazetesi',
     title: 'Demokrat Gazetesi',
     subtitle: 'Isparta',
     badgeText: '32',
@@ -871,7 +871,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/32_Demokrat_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_32_haber32',
+    id: 'haber32',
     title: 'Haber32',
     subtitle: 'Isparta',
     badgeText: '32',
@@ -881,7 +881,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/32_Haber32_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_33_cukurova_gazetesi',
+    id: 'cukurova_gazetesi',
     title: 'Çukurova Gazetesi',
     subtitle: 'Mersin',
     badgeText: '33',
@@ -891,7 +891,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/33_Çukurova_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_34_i̇stanbul_gazetesi',
+    id: 'i̇stanbul_gazetesi',
     title: 'İstanbul Gazetesi',
     subtitle: 'İstanbul',
     badgeText: '34',
@@ -901,7 +901,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/34_İstanbul_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_34_kadikoy_life',
+    id: 'kadikoy_life',
     title: 'Kadıköy Life',
     subtitle: 'İstanbul',
     badgeText: '34',
@@ -911,7 +911,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/34_Kadıköy_Life_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_35_yeni_bakis',
+    id: 'yeni_bakis',
     title: 'Yeni Bakış',
     subtitle: 'İzmir',
     badgeText: '35',
@@ -921,7 +921,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/35_Yeni_Bakış_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_35_dokuz_eylul',
+    id: 'dokuz_eylul',
     title: 'Dokuz Eylül',
     subtitle: 'İzmir',
     badgeText: '35',
@@ -931,7 +931,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/35_Dokuz_Eylül_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_35_ege_telgraf',
+    id: 'ege_telgraf',
     title: 'Ege Telgraf',
     subtitle: 'İzmir',
     badgeText: '35',
@@ -941,7 +941,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/35_Ege_Telgraf_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_36_kars_hakimiyet',
+    id: 'kars_hakimiyet',
     title: 'Kars Hakimiyet',
     subtitle: 'Kars',
     badgeText: '36',
@@ -951,7 +951,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/36_Kars_Hakimiyet_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_36_kars_manset',
+    id: 'kars_manset',
     title: 'Kars Manşet',
     subtitle: 'Kars',
     badgeText: '36',
@@ -961,7 +961,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/36_Kars_Manşet_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_36_kars_pusula',
+    id: 'kars_pusula',
     title: 'Kars Pusula',
     subtitle: 'Kars',
     badgeText: '36',
@@ -971,7 +971,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/36_Kars_Pusula_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_37_kastamonu_i̇stiklal',
+    id: 'kastamonu_i̇stiklal',
     title: 'Kastamonu İstiklal',
     subtitle: 'Kastamonu',
     badgeText: '37',
@@ -981,7 +981,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/37_Kastamonu_İstiklal_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_37_kastamonu_gundem',
+    id: 'kastamonu_gundem',
     title: 'Kastamonu Gündem',
     subtitle: 'Kastamonu',
     badgeText: '37',
@@ -991,7 +991,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/37_Kastamonu_Gündem_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_38_deniz_postasi',
+    id: 'deniz_postasi',
     title: 'Deniz Postası',
     subtitle: 'Kayseri',
     badgeText: '38',
@@ -1001,7 +1001,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/38_Deniz_Postası_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_39_gorunum_gazetesi',
+    id: 'gorunum_gazetesi',
     title: 'Görünüm Gazetesi',
     subtitle: 'Kırklareli',
     badgeText: '39',
@@ -1011,7 +1011,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/39_Görünüm_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_39_yesilyurt_gazetesi',
+    id: 'yesilyurt_gazetesi',
     title: 'Yeşilyurt Gazetesi',
     subtitle: 'Kırklareli',
     badgeText: '39',
@@ -1021,7 +1021,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/39_Yeşilyurt_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_39_onadim_gazetesi',
+    id: 'onadim_gazetesi',
     title: 'Önadım Gazetesi',
     subtitle: 'Kırklareli',
     badgeText: '39',
@@ -1031,7 +1031,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/39_Önadım_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_40_kirsehir_cigdem',
+    id: 'kirsehir_cigdem',
     title: 'Kırşehir Çiğdem',
     subtitle: 'Kırşehir',
     badgeText: '40',
@@ -1041,7 +1041,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/40_Kırşehir_Çiğdem_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_40_kirsehir_memleket',
+    id: 'kirsehir_memleket',
     title: 'Kırşehir Memleket',
     subtitle: 'Kırşehir',
     badgeText: '40',
@@ -1051,7 +1051,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/40_Kırşehir_Memleket_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_40_kirsehir_arena',
+    id: 'kirsehir_arena',
     title: 'Kırşehir Arena',
     subtitle: 'Kırşehir',
     badgeText: '40',
@@ -1061,7 +1061,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/40_Kırşehir_Arena_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_42_konya_yenigun',
+    id: 'konya_yenigun',
     title: 'Konya Yenigün',
     subtitle: 'Konya',
     badgeText: '42',
@@ -1071,7 +1071,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/42_Konya_Yenigün_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_43_kutahya_ekspres',
+    id: 'kutahya_ekspres',
     title: 'Kütahya Ekspres',
     subtitle: 'Kütahya',
     badgeText: '43',
@@ -1081,7 +1081,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/43_Kütahya_Ekspres_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_43_kutahya_postasi',
+    id: 'kutahya_postasi',
     title: 'Kütahya Postası',
     subtitle: 'Kütahya',
     badgeText: '43',
@@ -1091,7 +1091,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/43_Kütahya_Postası_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_44_malatya_haber',
+    id: 'malatya_haber',
     title: 'Malatya Haber',
     subtitle: 'Malatya',
     badgeText: '44',
@@ -1101,7 +1101,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/44_Malatya_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_44_bu_sabah_malatya',
+    id: 'bu_sabah_malatya',
     title: 'Bu Sabah Malatya',
     subtitle: 'Malatya',
     badgeText: '44',
@@ -1111,7 +1111,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/44_Bu_Sabah_Malatya_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_45_manisa_kulis',
+    id: 'manisa_kulis',
     title: 'Manisa Kulis',
     subtitle: 'Manisa',
     badgeText: '45',
@@ -1121,7 +1121,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/45_Manisa_Kulis_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_45_manisa’da_gundem',
+    id: 'manisa’da_gundem',
     title: 'Manisa’da Gündem',
     subtitle: 'Manisa',
     badgeText: '45',
@@ -1131,7 +1131,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/45_Manisa’da_Gündem_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_46_kahramanmaras_manset',
+    id: 'kahramanmaras_manset',
     title: 'Kahramanmaraş Manşet',
     subtitle: 'Kahramanmaraş',
     badgeText: '46',
@@ -1141,7 +1141,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/46_Kahramanmaraş_Manşet_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_46_maras_gundem',
+    id: 'maras_gundem',
     title: 'Maraş Gündem',
     subtitle: 'Kahramanmaraş',
     badgeText: '46',
@@ -1151,7 +1151,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/46_Maraş_Gündem_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_46_maras_yenigun',
+    id: 'maras_yenigun',
     title: 'Maraş Yenigün',
     subtitle: 'Kahramanmaraş',
     badgeText: '46',
@@ -1161,7 +1161,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/46_Maraş_Yenigün_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_47_mardin_i̇letisim',
+    id: 'mardin_i̇letisim',
     title: 'Mardin İletişim',
     subtitle: 'Mardin',
     badgeText: '47',
@@ -1171,7 +1171,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/47_Mardin_İletişim_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_48_hamle_gazetesi',
+    id: 'hamle_gazetesi',
     title: 'Hamle Gazetesi',
     subtitle: 'Muğla',
     badgeText: '48',
@@ -1181,7 +1181,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/48_Hamle_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_49_haber49',
+    id: 'haber49',
     title: 'Haber49',
     subtitle: 'Muş',
     badgeText: '49',
@@ -1191,7 +1191,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/49_Haber49_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_50_muskara_haber',
+    id: 'muskara_haber',
     title: 'Muşkara Haber',
     subtitle: 'Nevşehir',
     badgeText: '50',
@@ -1201,7 +1201,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/50_Muşkara_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_50_fi̇b_haber',
+    id: 'fi̇b_haber',
     title: 'FİB Haber',
     subtitle: 'Nevşehir',
     badgeText: '50',
@@ -1211,7 +1211,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/50_FİB_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_51_nigde_anadolu_haber',
+    id: 'nigde_anadolu_haber',
     title: 'Niğde Anadolu Haber',
     subtitle: 'Niğde',
     badgeText: '51',
@@ -1221,7 +1221,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/51_Niğde_Anadolu_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_51_nigde_gunaydin',
+    id: 'nigde_gunaydin',
     title: 'Niğde Günaydın',
     subtitle: 'Niğde',
     badgeText: '51',
@@ -1231,7 +1231,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/51_Niğde_Günaydın_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_52_ordu_gazete',
+    id: 'ordu_gazete',
     title: 'Ordu Gazete',
     subtitle: 'Ordu',
     badgeText: '52',
@@ -1241,7 +1241,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/52_Ordu_Gazete_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_53_rizedeyiz',
+    id: 'rizedeyiz',
     title: 'Rizedeyiz',
     subtitle: 'Rize',
     badgeText: '53',
@@ -1251,7 +1251,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/53_Rizedeyiz_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_53_rize’nin_sesi',
+    id: 'rize’nin_sesi',
     title: 'Rize’nin Sesi',
     subtitle: 'Rize',
     badgeText: '53',
@@ -1261,7 +1261,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/53_Rize’nin_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_53_olay53',
+    id: 'olay53',
     title: 'Olay53',
     subtitle: 'Rize',
     badgeText: '53',
@@ -1271,7 +1271,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/53_Olay53_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_54_yeni_sakarya',
+    id: 'yeni_sakarya',
     title: 'Yeni Sakarya',
     subtitle: 'Sakarya',
     badgeText: '54',
@@ -1281,7 +1281,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/54_Yeni_Sakarya_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_55_gazete_gercek',
+    id: 'gazete_gercek',
     title: 'Gazete Gerçek',
     subtitle: 'Samsun',
     badgeText: '55',
@@ -1291,7 +1291,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/55_Gazete_Gerçek_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_55_samsun_gazetesi',
+    id: 'samsun_gazetesi',
     title: 'Samsun Gazetesi',
     subtitle: 'Samsun',
     badgeText: '55',
@@ -1301,7 +1301,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/55_Samsun_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_56_mucadele_gazetesi',
+    id: 'mucadele_gazetesi',
     title: 'Mücadele Gazetesi',
     subtitle: 'Siirt',
     badgeText: '56',
@@ -1311,7 +1311,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: null,
   ),
   NewsSourceItem(
-    id: 'local_56_siirtpress',
+    id: 'siirtpress',
     title: 'SiirtPress',
     subtitle: 'Siirt',
     badgeText: '56',
@@ -1321,7 +1321,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/56_SiirtPress_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_57_vitrin_haber',
+    id: 'vitrin_haber',
     title: 'Vitrin Haber',
     subtitle: 'Sinop',
     badgeText: '57',
@@ -1331,7 +1331,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/57_Vitrin_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_57_haber57',
+    id: 'haber57',
     title: 'Haber57',
     subtitle: 'Sinop',
     badgeText: '57',
@@ -1341,7 +1341,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/57_Haber57_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_57_ajans_sinop',
+    id: 'ajans_sinop',
     title: 'Ajans Sinop',
     subtitle: 'Sinop',
     badgeText: '57',
@@ -1351,7 +1351,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/57_Ajans_Sinop_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_58_sivas_ekspres',
+    id: 'sivas_ekspres',
     title: 'Sivas Ekspres',
     subtitle: 'Sivas',
     badgeText: '58',
@@ -1361,7 +1361,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/58_Sivas_Ekspres_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_60_hursoz_gazetesi',
+    id: 'hursoz_gazetesi',
     title: 'Hürsöz Gazetesi',
     subtitle: 'Tokat',
     badgeText: '60',
@@ -1371,7 +1371,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/60_Hürsöz_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_60_tokat_haber',
+    id: 'tokat_haber',
     title: 'Tokat Haber',
     subtitle: 'Tokat',
     badgeText: '60',
@@ -1381,7 +1381,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/60_Tokat_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_60_tokat_haber_60',
+    id: 'tokat_haber_60',
     title: 'Tokat Haber 60',
     subtitle: 'Tokat',
     badgeText: '60',
@@ -1391,7 +1391,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/60_Tokat_Haber_60_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_61_taka_gazetesi',
+    id: 'taka_gazetesi',
     title: 'Taka Gazetesi',
     subtitle: 'Trabzon',
     badgeText: '61',
@@ -1401,7 +1401,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/61_Taka_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_62_dersim_ekspres',
+    id: 'dersim_ekspres',
     title: 'Dersim Ekspres',
     subtitle: 'Tunceli',
     badgeText: '62',
@@ -1411,7 +1411,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/62_Dersim_Ekspres_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_63_urfanatik',
+    id: 'urfanatik',
     title: 'Urfanatik',
     subtitle: 'Şanlıurfa',
     badgeText: '63',
@@ -1421,7 +1421,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/63_Urfanatik_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_63_gazete_i̇pekyol',
+    id: 'gazete_i̇pekyol',
     title: 'Gazete İpekyol',
     subtitle: 'Şanlıurfa',
     badgeText: '63',
@@ -1431,7 +1431,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/63_Gazete_İpekyol_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_64_usak_olay',
+    id: 'usak_olay',
     title: 'Uşak Olay',
     subtitle: 'Uşak',
     badgeText: '64',
@@ -1441,7 +1441,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/64_Uşak_Olay_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_64_usak_haber_gazetesi',
+    id: 'usak_haber_gazetesi',
     title: 'Uşak Haber Gazetesi',
     subtitle: 'Uşak',
     badgeText: '64',
@@ -1451,7 +1451,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/64_Uşak_Haber_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_65_van_olay',
+    id: 'van_olay',
     title: 'Van Olay',
     subtitle: 'Van',
     badgeText: '65',
@@ -1461,7 +1461,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/65_Van_Olay_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_65_vansesi_gazetesi',
+    id: 'vansesi_gazetesi',
     title: 'Vansesi Gazetesi',
     subtitle: 'Van',
     badgeText: '65',
@@ -1471,7 +1471,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/65_Vansesi_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_65_sehrivan',
+    id: 'sehrivan',
     title: 'Şehrivan',
     subtitle: 'Van',
     badgeText: '65',
@@ -1481,7 +1481,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/65_Şehrivan_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_66_i̇leri_gazetesi',
+    id: 'i̇leri_gazetesi',
     title: 'İleri Gazetesi',
     subtitle: 'Yozgat',
     badgeText: '66',
@@ -1491,7 +1491,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/66_İleri_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_66_yozgat_camlik',
+    id: 'yozgat_camlik',
     title: 'Yozgat Çamlık',
     subtitle: 'Yozgat',
     badgeText: '66',
@@ -1501,7 +1501,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/66_Yozgat_Çamlık_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_66_yozgat_olay',
+    id: 'yozgat_olay',
     title: 'Yozgat Olay',
     subtitle: 'Yozgat',
     badgeText: '66',
@@ -1511,7 +1511,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/66_Yozgat_Olay_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_67_pusula_gazetesi',
+    id: 'pusula_gazetesi',
     title: 'Pusula Gazetesi',
     subtitle: 'Zonguldak',
     badgeText: '67',
@@ -1521,7 +1521,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/67_Pusula_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_67_halkin_sesi',
+    id: 'halkin_sesi',
     title: 'Halkın Sesi',
     subtitle: 'Zonguldak',
     badgeText: '67',
@@ -1531,7 +1531,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/67_Halkın_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_67_ozgur_halkin_sesi',
+    id: 'ozgur_halkin_sesi',
     title: 'Özgür Halkın Sesi',
     subtitle: 'Zonguldak',
     badgeText: '67',
@@ -1541,7 +1541,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/67_Özgür_Halkın_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_68_yeni_aksaray',
+    id: 'yeni_aksaray',
     title: 'Yeni Aksaray',
     subtitle: 'Aksaray',
     badgeText: '68',
@@ -1551,7 +1551,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: null,
   ),
   NewsSourceItem(
-    id: 'local_68_aksaray_egemen',
+    id: 'aksaray_egemen',
     title: 'Aksaray Egemen',
     subtitle: 'Aksaray',
     badgeText: '68',
@@ -1561,7 +1561,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/68_Aksaray_Egemen_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_68_aksaray68_haber',
+    id: 'aksaray68_haber',
     title: 'Aksaray68 Haber',
     subtitle: 'Aksaray',
     badgeText: '68',
@@ -1571,7 +1571,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/68_Aksaray68_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_69_bayburt_postasi',
+    id: 'bayburt_postasi',
     title: 'Bayburt Postası',
     subtitle: 'Bayburt',
     badgeText: '69',
@@ -1581,7 +1581,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/69_Bayburt_Postası_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_69_bayburt_haber',
+    id: 'bayburt_haber',
     title: 'Bayburt Haber',
     subtitle: 'Bayburt',
     badgeText: '69',
@@ -1591,7 +1591,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/69_Bayburt_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_70_karaman_gundem',
+    id: 'karaman_gundem',
     title: 'Karaman Gündem',
     subtitle: 'Karaman',
     badgeText: '70',
@@ -1601,7 +1601,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/70_Karaman_Gündem_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_70_karaman’da_uyanis',
+    id: 'karaman’da_uyanis',
     title: 'Karaman’da Uyanış',
     subtitle: 'Karaman',
     badgeText: '70',
@@ -1611,7 +1611,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/70_Karaman’da_Uyanış_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_71_i̇l_gazetesi',
+    id: 'i̇l_gazetesi',
     title: 'İl Gazetesi',
     subtitle: 'Kırıkkale',
     badgeText: '71',
@@ -1621,7 +1621,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/71_İl_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_71_manset_gazetesi',
+    id: 'manset_gazetesi',
     title: 'Manşet Gazetesi',
     subtitle: 'Kırıkkale',
     badgeText: '71',
@@ -1631,7 +1631,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/71_Manşet_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_71_gazete_kale',
+    id: 'gazete_kale',
     title: 'Gazete Kale',
     subtitle: 'Kırıkkale',
     badgeText: '71',
@@ -1641,7 +1641,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/71_Gazete_Kale_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_72_batman_cagdas',
+    id: 'batman_cagdas',
     title: 'Batman Çağdaş',
     subtitle: 'Batman',
     badgeText: '72',
@@ -1651,7 +1651,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/72_Batman_Çağdaş_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_72_batman_pusula',
+    id: 'batman_pusula',
     title: 'Batman Pusula',
     subtitle: 'Batman',
     badgeText: '72',
@@ -1661,7 +1661,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/72_Batman_Pusula_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_73_sirnak_haber_73',
+    id: 'sirnak_haber_73',
     title: 'Şırnak Haber 73',
     subtitle: 'Şırnak',
     badgeText: '73',
@@ -1671,7 +1671,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/73_Şırnak_Haber_73_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_73_sirnak_haber',
+    id: 'sirnak_haber',
     title: 'Şırnak Haber',
     subtitle: 'Şırnak',
     badgeText: '73',
@@ -1681,7 +1681,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/73_Şırnak_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_73_sirnak_ajans',
+    id: 'sirnak_ajans',
     title: 'Şırnak Ajans',
     subtitle: 'Şırnak',
     badgeText: '73',
@@ -1691,7 +1691,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/73_Şırnak_Ajans_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_74_bartin_halk',
+    id: 'bartin_halk',
     title: 'Bartın Halk',
     subtitle: 'Bartın',
     badgeText: '74',
@@ -1701,7 +1701,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/74_Bartın_Halk_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_74_bartin_i̇nfo',
+    id: 'bartin_i̇nfo',
     title: 'Bartın İnfo',
     subtitle: 'Bartın',
     badgeText: '74',
@@ -1711,7 +1711,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/74_Bartın_İnfo_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_75_serhat_birikim',
+    id: 'serhat_birikim',
     title: 'Serhat Birikim',
     subtitle: 'Ardahan',
     badgeText: '75',
@@ -1721,7 +1721,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/75_Serhat_Birikim_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_76_yesil_igdir',
+    id: 'yesil_igdir',
     title: 'Yeşil Iğdır',
     subtitle: 'Iğdır',
     badgeText: '76',
@@ -1731,7 +1731,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/76_Yeşil_Iğdır_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_76_igdir_dogus',
+    id: 'igdir_dogus',
     title: 'Iğdır Doğuş',
     subtitle: 'Iğdır',
     badgeText: '76',
@@ -1741,7 +1741,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/76_Iğdır_Doğuş_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_76_guven_gazetesi',
+    id: 'guven_gazetesi',
     title: 'Güven Gazetesi',
     subtitle: 'Iğdır',
     badgeText: '76',
@@ -1751,7 +1751,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/76_Güven_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_77_yalova_gazetesi',
+    id: 'yalova_gazetesi',
     title: 'Yalova Gazetesi',
     subtitle: 'Yalova',
     badgeText: '77',
@@ -1761,7 +1761,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/77_Yalova_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_77_yalova_hayat',
+    id: 'yalova_hayat',
     title: 'Yalova Hayat',
     subtitle: 'Yalova',
     badgeText: '77',
@@ -1771,7 +1771,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/77_Yalova_Hayat_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_77_haberci',
+    id: 'haberci',
     title: 'Haberci',
     subtitle: 'Yalova',
     badgeText: '77',
@@ -1781,7 +1781,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/77_Haberci_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_78_bolgenin_sesi',
+    id: 'bolgenin_sesi',
     title: 'Bölgenin Sesi',
     subtitle: 'Karabük',
     badgeText: '78',
@@ -1791,7 +1791,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/78_Bölgenin_Sesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_78_karabuk_derin_haber',
+    id: 'karabuk_derin_haber',
     title: 'Karabük Derin Haber',
     subtitle: 'Karabük',
     badgeText: '78',
@@ -1801,7 +1801,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/78_Karabük_Derin_Haber_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_79_kilis_postasi',
+    id: 'kilis_postasi',
     title: 'Kilis Postası',
     subtitle: 'Kilis',
     badgeText: '79',
@@ -1811,7 +1811,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/79_Kilis_Postası_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_79_kilis_olay',
+    id: 'kilis_olay',
     title: 'Kilis Olay',
     subtitle: 'Kilis',
     badgeText: '79',
@@ -1821,7 +1821,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/79_Kilis_Olay_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_80_basak_gazetesi',
+    id: 'basak_gazetesi',
     title: 'Başak Gazetesi',
     subtitle: 'Osmaniye',
     badgeText: '80',
@@ -1831,7 +1831,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/80_Başak_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_80_hasret_gazetesi',
+    id: 'hasret_gazetesi',
     title: 'Hasret Gazetesi',
     subtitle: 'Osmaniye',
     badgeText: '80',
@@ -1841,7 +1841,7 @@ const List<NewsSourceItem> kAllNewsSources = [
     logoPath: 'assets/logos/80_Hasret_Gazetesi_logo.png',
   ),
   NewsSourceItem(
-    id: 'local_80_akdeniz_gazetesi',
+    id: 'akdeniz_gazetesi',
     title: 'Akdeniz Gazetesi',
     subtitle: 'Osmaniye',
     badgeText: '80',

@@ -27,9 +27,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _fadeCtrl;
   late Animation<double> _fadeAnim;
+  late AnimationController _progressCtrl;
 
   bool _isOnboardingDone = false;
   NewsFeedController? _preloadedController;
@@ -45,12 +46,19 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeAnim = CurvedAnimation(parent: _fadeCtrl, curve: Curves.easeIn);
     _fadeCtrl.forward();
 
+    _progressCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2500),
+    );
+    _progressCtrl.forward();
+
     if (widget.autoNavigate) _initializeAndNavigate();
   }
 
   @override
   void dispose() {
     _fadeCtrl.dispose();
+    _progressCtrl.dispose();
     super.dispose();
   }
 
@@ -94,8 +102,10 @@ class _SplashScreenState extends State<SplashScreen>
       if (elapsed < 2500) {
         await Future.delayed(Duration(milliseconds: 2500 - elapsed));
       }
-    } catch (_) {
-      _isOnboardingDone = false;
+    } catch (e) {
+      debugPrint('Splash Screen Error: $e');
+      // Do NOT reset _isOnboardingDone here, otherwise offline users or minor errors
+      // will force them to re-select sources!
     }
 
     if (!mounted) return;
@@ -108,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen>
         : const Firstpage();
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 600),
+        transitionDuration: const Duration(milliseconds: 1200),
         pageBuilder: (_, _, _) => target,
         transitionsBuilder: (_, anim, _, child) =>
             FadeTransition(opacity: anim, child: child),
@@ -149,33 +159,6 @@ class _SplashScreenState extends State<SplashScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Logo ikonu
-                  Container(
-                    width: 88,
-                    height: 88,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [AppColors.primary, AppColors.darkRed],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.5),
-                          blurRadius: 40,
-                          offset: const Offset(0, 12),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.newspaper_rounded,
-                      size: 46,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
                   // Başlık
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -204,7 +187,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                   // Yükleme metni
                   const Text(
-                    'Size özel ayarlamalar yapılıyor,\nlütfen bekleyin...',
+                    'Haberler yükleniyor...',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF94A3B8),
@@ -216,15 +199,24 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   const SizedBox(height: 32),
 
-                  // Spinner
+                  // Spinner -> Bar
                   SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.5,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        AppColors.primary.withValues(alpha: 0.85),
-                      ),
+                    width: 200,
+                    height: 6,
+                    child: AnimatedBuilder(
+                      animation: _progressCtrl,
+                      builder: (context, child) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(3),
+                          child: LinearProgressIndicator(
+                            value: _progressCtrl.value,
+                            backgroundColor: Colors.white.withValues(alpha: 0.1),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColors.primary.withValues(alpha: 0.85),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
